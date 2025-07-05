@@ -1,145 +1,146 @@
-# Free Fire Aimbot Panel
+# 🎯 Free Fire Aimbot Pro v2.0
 
-Um painel de controle para hacks do Free Fire no BlueStacks 4, desenvolvido em C# com interface gráfica moderna.
+Um painel avançado para Free Fire otimizado para BlueStacks 4 com interface moderna, sons e animações.
 
-## Funcionalidades
+## ✨ Novas Funcionalidades v2.0
 
-### 🎯 Aimbot
-- **Ativação Automática**: Escaneia e ativa o aimbot automaticamente
-- **Múltiplos Alvos**: Suporte para diferentes partes do corpo (pescoço, ombros)
+### 🎨 Interface Moderna
+- **Design Redesenhado**: Interface completamente nova com gradientes e cores modernas
+- **Organização por Seções**: Painéis organizados para Aimbot, Hacks e Status
+- **Ícones Emoji**: Interface mais amigável com ícones visuais
+- **Tema Escuro**: Design elegante com tema escuro profissional
+
+### 🔊 Sistema de Sons
+- **Som de Clique**: Feedback sonoro ao passar o mouse sobre botões
+- **Som de Sucesso**: Notificação sonora quando operações são bem-sucedidas
+- **Som de Erro**: Alerta sonoro para erros e avisos
+- **Som de Ativação**: Confirmação sonora para ativações
+
+### ⚡ Animações e Efeitos
+- **Efeito Hover**: Botões mudam de cor ao passar o mouse
+- **Animação de Sucesso**: Piscada verde quando operação é bem-sucedida
+- **Animação de Erro**: Piscada vermelha para erros
+- **Efeito de Pulso**: Animação pulsante durante escaneamento
+- **Transições Suaves**: Mudanças de estado com animações fluidas
+
+## 🚀 Funcionalidades
+
+### 🎯 Aimbot System
+- **Ativação Inteligente**: Escaneamento automático de endereços
+- **Múltiplos Alvos**: Suporte para diferentes partes do corpo
 - **Reaplicação**: Possibilidade de reaplicar o aimbot durante o jogo
-- **Status em Tempo Real**: Monitoramento do status do aimbot
+- **Status Visual**: Indicadores visuais de ativação
 
-### 🔫 No Recoil
-- **Eliminação do Recuo**: Remove completamente o recuo das armas
-- **Compatibilidade**: Funciona com todas as armas do jogo
-- **Aplicação Instantânea**: Ativação com um clique
+### ⚡ Hacks Pro
+- **No Recoil**: Elimina o recuo das armas
+- **Vision Hack**: Melhora a visibilidade
+- **Wall Hack**: Permite ver através de paredes
+- **Ativação Individual**: Cada hack pode ser ativado independentemente
 
-### 👁️ Vision Hack
-- **Visão Melhorada**: Permite ver através de obstáculos
-- **Padrão Otimizado**: Usa padrões AOB específicos para máxima eficiência
-- **Ativação Segura**: Implementação que evita detecção
+### 📊 Sistema de Status
+- **Monitoramento em Tempo Real**: Verificação do status de todos os módulos
+- **Indicadores Visuais**: Status com ícones coloridos
+- **Informações Detalhadas**: Detalhes sobre endereços encontrados
 
-### 🧱 Wall Hack
-- **Atravessar Paredes**: Permite ver e atirar através de paredes
-- **Padrão Especializado**: Implementação específica para paredes
-- **Compatibilidade Total**: Funciona em todos os mapas
+## 🛠️ Requisitos
 
-## Requisitos
+- **Sistema Operacional**: Windows 10/11
+- **BlueStacks**: Versão 4 ou superior
+- **Free Fire**: Versão mais recente
+- **Permissões**: Executar como administrador
+- **Arquitetura**: x64
 
-- **Sistema Operacional**: Windows 10/11 (x64)
-- **Emulador**: BlueStacks 4
-- **Jogo**: Free Fire
-- **Privilégios**: Executar como Administrador
-- **.NET**: Runtime 8.0 ou superior
+## 📦 Instalação
 
-## Instalação
+1. **Baixe o Projeto**: Clone ou baixe os arquivos
+2. **Compile**: Abra no Visual Studio e compile o projeto
+3. **Execute como Administrador**: Importante para acesso à memória
+4. **Inicie o BlueStacks**: Certifique-se de que o Free Fire está rodando
+5. **Ative o Aimbot**: Clique em "Ativar Aimbot" no painel
 
-1. **Baixe o projeto**:
-   ```bash
-   git clone [URL_DO_REPOSITORIO]
-   cd PAinel-AIM-ff
-   ```
+## 🎮 Como Usar
 
-2. **Compile o projeto**:
-   ```bash
-   dotnet build painelff.sln
-   ```
-
-3. **Execute como Administrador**:
-   - Navegue até `painelff\bin\Debug\net8.0-windows\`
-   - Execute `painelff.exe` como administrador
-
-## Como Usar
-
-### Preparação
-1. Inicie o BlueStacks 4
-2. Abra o Free Fire
+### Primeira Configuração
+1. Abra o BlueStacks 4
+2. Inicie o Free Fire
 3. Execute o painel como administrador
+4. Clique em "🚀 ATIVAR AIMBOT"
+5. Aguarde o escaneamento e confirmação
 
-### Ativação dos Hacks
+### Uso Durante o Jogo
+- **Reaplicar Aimbot**: Use "🔄 APLICAR NOVAMENTE" se necessário
+- **Ativar Hacks**: Clique nos botões dos hacks desejados
+- **Verificar Status**: Use "🔍 VERIFICAR STATUS" para monitorar
 
-#### Aimbot
-1. Clique em **"Ativar Aimbot"**
-2. Aguarde a mensagem de sucesso
-3. Use **"Aplicar Novamente"** se necessário
+## 🔧 Configurações Avançadas
 
-#### No Recoil
-1. Clique em **"Ativar No Recoil"**
-2. O recuo será eliminado instantaneamente
-
-#### Vision Hack
-1. Clique em **"Ativar Vision Hack"**
-2. Aguarde a confirmação de ativação
-3. A visão melhorada estará ativa
-
-#### Wall Hack
-1. Clique em **"Ativar Wall Hack"**
-2. Aguarde a confirmação de ativação
-3. Poderá ver através de paredes
-
-### Monitoramento
-- Use **"Status do Sistema"** para verificar o estado de todos os hacks
-- O painel mostra o status em tempo real de cada funcionalidade
-
-## Estrutura do Projeto
-
-```
-PAinel-AIM-ff/
-├── painelff/
-│   ├── Form1.cs              # Lógica principal dos hacks
-│   ├── Form1.Designer.cs     # Interface gráfica
-│   ├── Program.cs            # Ponto de entrada
-│   └── painelff.csproj       # Configuração do projeto
-├── Build_x64/                # Dependências compiladas
-├── painelff.sln              # Solução do Visual Studio
-└── README.md                 # Este arquivo
+### Offsets do Aimbot
+```csharp
+// Partes do corpo suportadas
+{"Neck", 0x6D},           // Pescoço
+{"NeckLeft", 0x9D},       // Pescoço Esquerdo
+{"NeckRight", 0x99},      // Pescoço Direito
+{"LeftShoulder", 0xA9},   // Ombro Esquerdo
+{"RightShoulder", 0xAD}   // Ombro Direito
 ```
 
-## Padrões AOB Utilizados
+### Padrões de Memória
+- **Aimbot**: Padrão otimizado para detecção
+- **No Recoil**: AOBs específicas para eliminar recuo
+- **Vision Hack**: Padrões para melhorar visibilidade
+- **Wall Hack**: AOBs para ver através de paredes
 
-### Vision Hack
-- **Busca**: `00 00 B4 43 DB 0F 49 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30`
-- **Substituição**: `00 00 B4 43 00 00 A0 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30`
+## ⚠️ Avisos Importantes
 
-### Wall Hack
-- **Busca**: `09 0E 00 00 80 3F 00 00 80 3F`
-- **Substituição**: `09 0E 00 00 A0 4F 00 00 80 3F`
+- **Uso Responsável**: Use apenas em servidores privados ou para fins educacionais
+- **Detecção**: Sempre existe risco de detecção por anti-cheat
+- **Atualizações**: Padrões podem mudar com atualizações do jogo
+- **Permissões**: Sempre execute como administrador
 
-## Segurança
+## 🐛 Solução de Problemas
 
-⚠️ **Aviso Importante**:
-- Este software é para fins educacionais
-- Use por sua conta e risco
-- Pode resultar em banimento da conta
-- Recomenda-se usar em contas secundárias
+### BlueStacks Não Encontrado
+- Verifique se o BlueStacks 4 está rodando
+- Certifique-se de que o Free Fire está aberto
+- Execute o painel como administrador
 
-## Suporte
+### Padrões Não Encontrados
+- O jogo pode ter sido atualizado
+- Verifique se está usando a versão correta do Free Fire
+- Tente reiniciar o BlueStacks
 
-Para problemas ou dúvidas:
-1. Verifique se o BlueStacks 4 está rodando
-2. Certifique-se de executar como administrador
-3. Confirme que o Free Fire está aberto
-4. Verifique o status do sistema
+### Erro de Acesso à Memória
+- Execute como administrador
+- Desative temporariamente o antivírus
+- Verifique se não há outros programas interferindo
 
-## Changelog
+## 📝 Changelog
 
-### v2.0
-- ✅ Adicionado Vision Hack
-- ✅ Adicionado Wall Hack
-- ✅ Interface atualizada
-- ✅ Status melhorado
-- ✅ Compilação otimizada
+### v2.0 - Interface Moderna
+- ✨ Redesign completo da interface
+- 🔊 Sistema de sons integrado
+- ⚡ Animações e efeitos visuais
+- 🎨 Tema escuro profissional
+- 📱 Layout responsivo e organizado
+- 🔧 Melhorias na experiência do usuário
 
-### v1.0
-- ✅ Aimbot básico
-- ✅ No Recoil
-- ✅ Interface inicial
+### v1.0 - Versão Inicial
+- 🎯 Sistema básico de aimbot
+- ⚡ Hacks fundamentais
+- 📊 Monitoramento de status
 
-## Licença
+## 🤝 Contribuição
 
-Este projeto é fornecido "como está" sem garantias. Use por sua conta e risco.
+Contribuições são bem-vindas! Sinta-se à vontade para:
+- Reportar bugs
+- Sugerir melhorias
+- Adicionar novas funcionalidades
+- Melhorar a documentação
+
+## 📄 Licença
+
+Este projeto é fornecido "como está" para fins educacionais. Use por sua conta e risco.
 
 ---
 
-**Desenvolvido para fins educacionais e de pesquisa em segurança de jogos.** 
+**Desenvolvido com ❤️ para a comunidade Free Fire** 

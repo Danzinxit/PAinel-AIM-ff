@@ -1,6 +1,9 @@
 using System.Diagnostics;
 using Memory;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Media;
+using System.Drawing.Drawing2D;
 
 namespace painelff
 {
@@ -10,7 +13,17 @@ namespace painelff
         private bool isAimbotActive = false;
         private bool isScanning = false;
         private List<long> aimbotAddresses = new List<long>();
-        
+
+        // Sons do sistema
+        private SoundPlayer? soundSuccess;
+        private SoundPlayer? soundError;
+        private SoundPlayer? soundClick;
+        private SoundPlayer? soundActivate;
+
+        // Timers para animações
+        private System.Windows.Forms.Timer? animationTimer;
+        private System.Windows.Forms.Timer? pulseTimer;
+
         // Offsets para diferentes partes do corpo
         private readonly Dictionary<string, int> bodyOffsets = new Dictionary<string, int>
         {
@@ -41,6 +54,180 @@ namespace painelff
         {
             InitializeComponent();
             InitializeAimbot();
+            InitializeSounds();
+            InitializeAnimations();
+            SetupEventHandlers();
+        }
+
+                private void InitializeSounds()
+        {
+            try
+            {
+                // Criar sons personalizados (sem tocar durante inicialização)
+                soundSuccess = new SoundPlayer();
+                soundError = new SoundPlayer();
+                soundClick = new SoundPlayer();
+                soundActivate = new SoundPlayer();
+                
+                // Aqui você pode carregar arquivos .wav personalizados se quiser
+                // soundClick.LoadAsync("sounds/click.wav");
+                // soundSuccess.LoadAsync("sounds/success.wav");
+                // soundError.LoadAsync("sounds/error.wav");
+                // soundActivate.LoadAsync("sounds/activate.wav");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Erro ao inicializar sons: {ex.Message}");
+            }
+        }
+
+        private void InitializeAnimations()
+        {
+            // Timer para animações gerais
+            animationTimer = new System.Windows.Forms.Timer();
+            animationTimer.Interval = 50;
+            animationTimer.Tick += AnimationTimer_Tick;
+
+            // Timer para efeito de pulso
+            pulseTimer = new System.Windows.Forms.Timer();
+            pulseTimer.Interval = 100;
+            pulseTimer.Tick += PulseTimer_Tick;
+        }
+
+        private void SetupEventHandlers()
+        {
+            // Adicionar eventos de mouse para efeitos visuais
+            btnActive.MouseEnter += Button_MouseEnter;
+            btnActive.MouseLeave += Button_MouseLeave;
+            btnToggleAimbot.MouseEnter += Button_MouseEnter;
+            btnToggleAimbot.MouseLeave += Button_MouseLeave;
+            btnNoRecoil.MouseEnter += Button_MouseEnter;
+            btnNoRecoil.MouseLeave += Button_MouseLeave;
+            btnVisionHack.MouseEnter += Button_MouseEnter;
+            btnVisionHack.MouseLeave += Button_MouseLeave;
+            btnWallHack.MouseEnter += Button_MouseEnter;
+            btnWallHack.MouseLeave += Button_MouseLeave;
+            btnStatus.MouseEnter += Button_MouseEnter;
+            btnStatus.MouseLeave += Button_MouseLeave;
+        }
+
+        private void Button_MouseEnter(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                button.BackColor = Color.FromArgb(
+                    Math.Min(button.BackColor.R + 20, 255),
+                    Math.Min(button.BackColor.G + 20, 255),
+                    Math.Min(button.BackColor.B + 20, 255)
+                );
+                // Removido o som do hover - agora só toca quando clica
+            }
+        }
+
+        private void Button_MouseLeave(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                // Restaurar cor original baseada no tipo de botão
+                if (button == btnActive)
+                    button.BackColor = Color.FromArgb(0, 120, 215);
+                else if (button == btnToggleAimbot)
+                    button.BackColor = Color.FromArgb(60, 60, 70);
+                else if (button == btnNoRecoil || button == btnVisionHack || button == btnWallHack)
+                    button.BackColor = Color.FromArgb(80, 80, 90);
+                else if (button == btnStatus)
+                    button.BackColor = Color.FromArgb(100, 100, 110);
+            }
+        }
+
+        private void PlayClickSound()
+        {
+            try
+            {
+                // Som de clique personalizado (frequência alta, duração curta)
+                Console.Beep(800, 50);
+            }
+            catch { }
+        }
+
+        private void PlaySuccessSound()
+        {
+            try
+            {
+                // Som de sucesso personalizado (frequência ascendente)
+                Console.Beep(600, 100);
+                Console.Beep(800, 100);
+                Console.Beep(1000, 100);
+            }
+            catch { }
+        }
+
+        private void PlayErrorSound()
+        {
+            try
+            {
+                // Som de erro personalizado (frequência descendente)
+                Console.Beep(1000, 100);
+                Console.Beep(800, 100);
+                Console.Beep(600, 100);
+            }
+            catch { }
+        }
+
+        private void PlayActivateSound()
+        {
+            try
+            {
+                // Som de ativação personalizado (frequência média)
+                Console.Beep(700, 150);
+            }
+            catch { }
+        }
+
+        private void AnimationTimer_Tick(object sender, EventArgs e)
+        {
+            // Animações gerais podem ser adicionadas aqui
+        }
+
+        private void PulseTimer_Tick(object sender, EventArgs e)
+        {
+            // Efeito de pulso para botões ativos
+            if (isAimbotActive)
+            {
+                btnActive.BackColor = Color.FromArgb(
+                    (int)(Math.Sin(DateTime.Now.Ticks / 1000000.0) * 30 + 120),
+                    150,
+                    215
+                );
+            }
+        }
+
+        private async void AnimateButtonSuccess(Button button)
+        {
+            Color originalColor = button.BackColor;
+
+            // Animação de sucesso
+            for (int i = 0; i < 3; i++)
+            {
+                button.BackColor = Color.FromArgb(0, 200, 100);
+                await Task.Delay(100);
+                button.BackColor = originalColor;
+                await Task.Delay(100);
+            }
+        }
+
+        private async void AnimateButtonError(Button button)
+        {
+            Color originalColor = button.BackColor;
+
+            // Animação de erro
+            for (int i = 0; i < 2; i++)
+            {
+                button.BackColor = Color.FromArgb(200, 50, 50);
+                await Task.Delay(150);
+                button.BackColor = originalColor;
+                await Task.Delay(150);
+            }
         }
 
         private void InitializeAimbot()
@@ -64,24 +251,33 @@ namespace painelff
         {
             if (isScanning) return;
 
+            PlayClickSound();
+
             try
             {
                 isScanning = true;
-                btnActive.Text = "Escaneando...";
+                btnActive.Text = "🔍 ESCANEANDO...";
                 btnActive.Enabled = false;
+
+                // Iniciar animação de loading
+                pulseTimer.Start();
 
                 // Verificar se o processo está rodando
                 var processes = Process.GetProcessesByName("HD-Player");
                 if (processes.Length == 0)
                 {
-                    MessageBox.Show("BlueStacks 4 não encontrado! Certifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnActive);
+                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 // Abrir processo se não estiver aberto
                 if (!memory.OpenProcess("HD-Player"))
                 {
-                    MessageBox.Show("Erro ao abrir processo do BlueStacks. Execute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnActive);
+                    MessageBox.Show("❌ Erro ao abrir processo do BlueStacks.\n\nExecute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -91,7 +287,8 @@ namespace painelff
                 if (scanResults != null && scanResults.Any())
                 {
                     aimbotAddresses.Clear();
-                    aimbotAddresses.AddRange(scanResults);
+                    // Limitar ao primeiro endereço encontrado
+                    aimbotAddresses.Add(scanResults.First());
 
                     // Aplicar aimbot nos dois offsets
                     foreach (var baseAddress in aimbotAddresses)
@@ -111,24 +308,39 @@ namespace painelff
                     }
 
                     isAimbotActive = true;
-                    btnActive.Text = "Aimbot Ativo";
-                    btnActive.BackColor = Color.LightGreen;
+                    btnActive.Text = "✅ AIMBOT ATIVO";
+                    btnActive.BackColor = Color.FromArgb(0, 150, 100);
                     btnToggleAimbot.Enabled = true;
-                    MessageBox.Show($"Aimbot ativado com sucesso!\nEndereços encontrados: {aimbotAddresses.Count}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    PlaySuccessSound();
+                    AnimateButtonSuccess(btnActive);
+
+                    MessageBox.Show($"🎯 Aimbot ativado com sucesso!\n\n📍 Endereços encontrados: {aimbotAddresses.Count}\n⚡ Sistema pronto para uso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Nenhum endereço encontrado. Verifique se o Free Fire está rodando no BlueStacks 4.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    PlayErrorSound();
+                    AnimateButtonError(btnActive);
+                    MessageBox.Show("⚠️ Nenhum endereço encontrado.\n\nVerifique se o Free Fire está rodando no BlueStacks 4.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao ativar aimbot: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PlayErrorSound();
+                AnimateButtonError(btnActive);
+                MessageBox.Show($"❌ Erro ao ativar aimbot:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 isScanning = false;
                 btnActive.Enabled = true;
+                pulseTimer.Stop();
+
+                if (!isAimbotActive)
+                {
+                    btnActive.Text = "🚀 ATIVAR AIMBOT";
+                    btnActive.BackColor = Color.FromArgb(0, 120, 215);
+                }
             }
         }
 
@@ -142,10 +354,10 @@ namespace painelff
                     foreach (var offset in bodyOffsets)
                     {
                         long targetAddress = baseAddress + offset.Value;
-                        
+
                         // Escrever novo valor (105 decimal = 0x69)
                         memory.WriteMemory(targetAddress.ToString("X"), "int", WRITE_VALUE.ToString());
-                        
+
                         // Pequena pausa para evitar detecção
                         await Task.Delay(10);
                     }
@@ -162,23 +374,33 @@ namespace painelff
         {
             if (!isAimbotActive || aimbotAddresses.Count == 0)
             {
-                MessageBox.Show("Ative o aimbot primeiro!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                PlayErrorSound();
+                AnimateButtonError(btnToggleAimbot);
+                MessageBox.Show("⚠️ Ative o aimbot primeiro!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            PlayClickSound();
+
             try
             {
-                btnToggleAimbot.Text = "Aplicando...";
+                btnToggleAimbot.Text = "⚡ APLICANDO...";
                 btnToggleAimbot.Enabled = false;
 
                 await ApplyAimbotToAllParts();
 
-                btnToggleAimbot.Text = "Aplicar Novamente";
-                MessageBox.Show("Aimbot aplicado novamente!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                btnToggleAimbot.Text = "🔄 APLICAR NOVAMENTE";
+
+                PlaySuccessSound();
+                AnimateButtonSuccess(btnToggleAimbot);
+
+                MessageBox.Show("✅ Aimbot aplicado novamente!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao aplicar aimbot: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PlayErrorSound();
+                AnimateButtonError(btnToggleAimbot);
+                MessageBox.Show($"❌ Erro ao aplicar aimbot:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -188,20 +410,24 @@ namespace painelff
 
         private void btnStatus_Click(object sender, EventArgs e)
         {
+            PlayClickSound();
+
             var processes = Process.GetProcessesByName("HD-Player");
-            string status = processes.Length > 0 ? "BlueStacks 4: Ativo" : "BlueStacks 4: Não encontrado";
-            status += $"\nAimbot: {(isAimbotActive ? "Ativo" : "Inativo")}";
-            status += $"\nEndereços encontrados: {aimbotAddresses.Count}";
-            status += $"\nVision Hack: {(btnVisionHack.Text.Contains("Ativo") ? "Ativo" : "Inativo")}";
-            status += $"\nWall Hack: {(btnWallHack.Text.Contains("Ativo") ? "Ativo" : "Inativo")}";
-            status += $"\nNo Recoil: {(btnNoRecoil.Text.Contains("Ativo") ? "Ativo" : "Inativo")}";
-            
-            MessageBox.Show(status, "Status do Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            string status = processes.Length > 0 ? "🟢 BlueStacks 4: Ativo" : "🔴 BlueStacks 4: Não encontrado";
+            status += $"\n🎯 Aimbot: {(isAimbotActive ? "🟢 Ativo" : "🔴 Inativo")}";
+            status += $"\n📍 Endereços encontrados: {aimbotAddresses.Count}";
+            status += $"\n👁️ Vision Hack: {(btnVisionHack.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
+            status += $"\n🧱 Wall Hack: {(btnWallHack.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
+            status += $"\n🎯 No Recoil: {(btnNoRecoil.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
+
+            MessageBox.Show(status, "📊 Status do Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private async void btnNoRecoil_Click(object sender, EventArgs e)
         {
-            btnNoRecoil.Text = "Aplicando...";
+            PlayClickSound();
+
+            btnNoRecoil.Text = "⚡ APLICANDO...";
             btnNoRecoil.Enabled = false;
             try
             {
@@ -213,12 +439,16 @@ namespace painelff
                 var processes = Process.GetProcessesByName("HD-Player");
                 if (processes.Length == 0)
                 {
-                    MessageBox.Show("BlueStacks 4 não encontrado! Certifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnNoRecoil);
+                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!memory.OpenProcess("HD-Player"))
                 {
-                    MessageBox.Show("Erro ao abrir processo do BlueStacks. Execute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnNoRecoil);
+                    MessageBox.Show("❌ Erro ao abrir processo do BlueStacks.\n\nExecute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -226,7 +456,9 @@ namespace painelff
                 var result = await Task.Run(() => memory.AoBScan(aobNoRecoil1, true, true));
                 if (result == null || !result.Any())
                 {
-                    MessageBox.Show("Padrão No Recoil não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    PlayErrorSound();
+                    AnimateButtonError(btnNoRecoil);
+                    MessageBox.Show("⚠️ Padrão No Recoil não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -238,13 +470,20 @@ namespace painelff
                     memory.WriteBytes(address.ToString("X"), bytes);
                     await Task.Delay(10);
                 }
-                btnNoRecoil.Text = "No Recoil Ativo";
-                btnNoRecoil.BackColor = Color.LightGreen;
-                MessageBox.Show("No Recoil aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                btnNoRecoil.Text = "✅ NO RECOIL ATIVO";
+                btnNoRecoil.BackColor = Color.FromArgb(0, 150, 100);
+
+                PlaySuccessSound();
+                AnimateButtonSuccess(btnNoRecoil);
+
+                MessageBox.Show("✅ No Recoil aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao aplicar No Recoil: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PlayErrorSound();
+                AnimateButtonError(btnNoRecoil);
+                MessageBox.Show($"❌ Erro ao aplicar No Recoil:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -254,7 +493,9 @@ namespace painelff
 
         private async void btnVisionHack_Click(object sender, EventArgs e)
         {
-            btnVisionHack.Text = "Aplicando...";
+            PlayClickSound();
+
+            btnVisionHack.Text = "⚡ APLICANDO...";
             btnVisionHack.Enabled = false;
             try
             {
@@ -262,12 +503,16 @@ namespace painelff
                 var processes = Process.GetProcessesByName("HD-Player");
                 if (processes.Length == 0)
                 {
-                    MessageBox.Show("BlueStacks 4 não encontrado! Certifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnVisionHack);
+                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!memory.OpenProcess("HD-Player"))
                 {
-                    MessageBox.Show("Erro ao abrir processo do BlueStacks. Execute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnVisionHack);
+                    MessageBox.Show("❌ Erro ao abrir processo do BlueStacks.\n\nExecute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -275,7 +520,9 @@ namespace painelff
                 var result = await Task.Run(() => memory.AoBScan(patternVisionHackSearch, true, true));
                 if (result == null || !result.Any())
                 {
-                    MessageBox.Show("Padrão Vision Hack não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    PlayErrorSound();
+                    AnimateButtonError(btnVisionHack);
+                    MessageBox.Show("⚠️ Padrão Vision Hack não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -287,13 +534,20 @@ namespace painelff
                     memory.WriteBytes(address.ToString("X"), bytes);
                     await Task.Delay(10);
                 }
-                btnVisionHack.Text = "Vision Hack Ativo";
-                btnVisionHack.BackColor = Color.LightGreen;
-                MessageBox.Show("Vision Hack aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                btnVisionHack.Text = "✅ VISION HACK ATIVO";
+                btnVisionHack.BackColor = Color.FromArgb(0, 150, 100);
+
+                PlaySuccessSound();
+                AnimateButtonSuccess(btnVisionHack);
+
+                MessageBox.Show("✅ Vision Hack aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao aplicar Vision Hack: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PlayErrorSound();
+                AnimateButtonError(btnVisionHack);
+                MessageBox.Show($"❌ Erro ao aplicar Vision Hack:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -303,7 +557,9 @@ namespace painelff
 
         private async void btnWallHack_Click(object sender, EventArgs e)
         {
-            btnWallHack.Text = "Aplicando...";
+            PlayClickSound();
+
+            btnWallHack.Text = "⚡ APLICANDO...";
             btnWallHack.Enabled = false;
             try
             {
@@ -311,12 +567,16 @@ namespace painelff
                 var processes = Process.GetProcessesByName("HD-Player");
                 if (processes.Length == 0)
                 {
-                    MessageBox.Show("BlueStacks 4 não encontrado! Certifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnWallHack);
+                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 if (!memory.OpenProcess("HD-Player"))
                 {
-                    MessageBox.Show("Erro ao abrir processo do BlueStacks. Execute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    PlayErrorSound();
+                    AnimateButtonError(btnWallHack);
+                    MessageBox.Show("❌ Erro ao abrir processo do BlueStacks.\n\nExecute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -324,7 +584,9 @@ namespace painelff
                 var result = await Task.Run(() => memory.AoBScan(patternWallHackSearch, true, true));
                 if (result == null || !result.Any())
                 {
-                    MessageBox.Show("Padrão Wall Hack não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    PlayErrorSound();
+                    AnimateButtonError(btnWallHack);
+                    MessageBox.Show("⚠️ Padrão Wall Hack não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -336,13 +598,20 @@ namespace painelff
                     memory.WriteBytes(address.ToString("X"), bytes);
                     await Task.Delay(10);
                 }
-                btnWallHack.Text = "Wall Hack Ativo";
-                btnWallHack.BackColor = Color.LightGreen;
-                MessageBox.Show("Wall Hack aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                btnWallHack.Text = "✅ WALL HACK ATIVO";
+                btnWallHack.BackColor = Color.FromArgb(0, 150, 100);
+
+                PlaySuccessSound();
+                AnimateButtonSuccess(btnWallHack);
+
+                MessageBox.Show("✅ Wall Hack aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao aplicar Wall Hack: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                PlayErrorSound();
+                AnimateButtonError(btnWallHack);
+                MessageBox.Show($"❌ Erro ao aplicar Wall Hack:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -352,6 +621,12 @@ namespace painelff
 
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
+            // Parar timers
+            if (animationTimer != null)
+                animationTimer.Stop();
+            if (pulseTimer != null)
+                pulseTimer.Stop();
+
             // Limpar recursos ao fechar
             if (memory != null)
             {
@@ -361,7 +636,21 @@ namespace painelff
                 }
                 catch { }
             }
+
+            // Dispose dos sons
+            soundSuccess?.Dispose();
+            soundError?.Dispose();
+            soundClick?.Dispose();
+            soundActivate?.Dispose();
+
             base.OnFormClosing(e);
+        }
+
+        private void lblTitle_Click(object sender, EventArgs e)
+        {
+            PlayClickSound();
+            // Aqui você pode adicionar alguma funcionalidade especial quando clicar no título
+            // Por exemplo, mostrar informações sobre o desenvolvedor
         }
     }
 }
