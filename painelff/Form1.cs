@@ -29,6 +29,14 @@ namespace painelff
         private long offset5 = 44L;
         private long offset6 = 40L;
 
+        // Padrões para Vision Hack
+        private string patternVisionHackSearch = "00 00 B4 43 DB 0F 49 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30";
+        private string patternVisionHackReplace = "00 00 B4 43 00 00 A0 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30";
+
+        // Padrões para Wall Hack
+        private string patternWallHackSearch = "09 0E 00 00 80 3F 00 00 80 3F";
+        private string patternWallHackReplace = "09 0E 00 00 A0 4F 00 00 80 3F";
+
         public Form1()
         {
             InitializeComponent();
@@ -184,6 +192,9 @@ namespace painelff
             string status = processes.Length > 0 ? "BlueStacks 4: Ativo" : "BlueStacks 4: Não encontrado";
             status += $"\nAimbot: {(isAimbotActive ? "Ativo" : "Inativo")}";
             status += $"\nEndereços encontrados: {aimbotAddresses.Count}";
+            status += $"\nVision Hack: {(btnVisionHack.Text.Contains("Ativo") ? "Ativo" : "Inativo")}";
+            status += $"\nWall Hack: {(btnWallHack.Text.Contains("Ativo") ? "Ativo" : "Inativo")}";
+            status += $"\nNo Recoil: {(btnNoRecoil.Text.Contains("Ativo") ? "Ativo" : "Inativo")}";
             
             MessageBox.Show(status, "Status do Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -238,6 +249,104 @@ namespace painelff
             finally
             {
                 btnNoRecoil.Enabled = true;
+            }
+        }
+
+        private async void btnVisionHack_Click(object sender, EventArgs e)
+        {
+            btnVisionHack.Text = "Aplicando...";
+            btnVisionHack.Enabled = false;
+            try
+            {
+                // Verificar se o processo está rodando
+                var processes = Process.GetProcessesByName("HD-Player");
+                if (processes.Length == 0)
+                {
+                    MessageBox.Show("BlueStacks 4 não encontrado! Certifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!memory.OpenProcess("HD-Player"))
+                {
+                    MessageBox.Show("Erro ao abrir processo do BlueStacks. Execute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Buscar o padrão do Vision Hack
+                var result = await Task.Run(() => memory.AoBScan(patternVisionHackSearch, true, true));
+                if (result == null || !result.Any())
+                {
+                    MessageBox.Show("Padrão Vision Hack não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Patch: sobrescrever o endereço encontrado com o padrão de substituição
+                foreach (var address in result)
+                {
+                    // Escrever o padrão de substituição byte a byte
+                    var bytes = patternVisionHackReplace.Split(' ').Select(b => Convert.ToByte(b, 16)).ToArray();
+                    memory.WriteBytes(address.ToString("X"), bytes);
+                    await Task.Delay(10);
+                }
+                btnVisionHack.Text = "Vision Hack Ativo";
+                btnVisionHack.BackColor = Color.LightGreen;
+                MessageBox.Show("Vision Hack aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao aplicar Vision Hack: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnVisionHack.Enabled = true;
+            }
+        }
+
+        private async void btnWallHack_Click(object sender, EventArgs e)
+        {
+            btnWallHack.Text = "Aplicando...";
+            btnWallHack.Enabled = false;
+            try
+            {
+                // Verificar se o processo está rodando
+                var processes = Process.GetProcessesByName("HD-Player");
+                if (processes.Length == 0)
+                {
+                    MessageBox.Show("BlueStacks 4 não encontrado! Certifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (!memory.OpenProcess("HD-Player"))
+                {
+                    MessageBox.Show("Erro ao abrir processo do BlueStacks. Execute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Buscar o padrão do Wall Hack
+                var result = await Task.Run(() => memory.AoBScan(patternWallHackSearch, true, true));
+                if (result == null || !result.Any())
+                {
+                    MessageBox.Show("Padrão Wall Hack não encontrado!", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Patch: sobrescrever o endereço encontrado com o padrão de substituição
+                foreach (var address in result)
+                {
+                    // Escrever o padrão de substituição byte a byte
+                    var bytes = patternWallHackReplace.Split(' ').Select(b => Convert.ToByte(b, 16)).ToArray();
+                    memory.WriteBytes(address.ToString("X"), bytes);
+                    await Task.Delay(10);
+                }
+                btnWallHack.Text = "Wall Hack Ativo";
+                btnWallHack.BackColor = Color.LightGreen;
+                MessageBox.Show("Wall Hack aplicado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao aplicar Wall Hack: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnWallHack.Enabled = true;
             }
         }
 

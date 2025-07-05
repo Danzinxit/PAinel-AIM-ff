@@ -32,6 +32,8 @@
             btnToggleAimbot = new Button();
             btnStatus = new Button();
             btnNoRecoil = new Button();
+            btnVisionHack = new Button();
+            btnWallHack = new Button();
             lblTitle = new Label();
             lblInfo = new Label();
             SuspendLayout();
@@ -93,6 +95,34 @@
             btnNoRecoil.UseVisualStyleBackColor = false;
             btnNoRecoil.Click += btnNoRecoil_Click;
             // 
+            // btnVisionHack
+            // 
+            btnVisionHack.BackColor = Color.FromArgb(45, 45, 45);
+            btnVisionHack.FlatStyle = FlatStyle.Flat;
+            btnVisionHack.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnVisionHack.ForeColor = Color.White;
+            btnVisionHack.Location = new Point(50, 325);
+            btnVisionHack.Name = "btnVisionHack";
+            btnVisionHack.Size = new Size(200, 40);
+            btnVisionHack.TabIndex = 6;
+            btnVisionHack.Text = "Ativar Vision Hack";
+            btnVisionHack.UseVisualStyleBackColor = false;
+            btnVisionHack.Click += btnVisionHack_Click;
+            // 
+            // btnWallHack
+            // 
+            btnWallHack.BackColor = Color.FromArgb(45, 45, 45);
+            btnWallHack.FlatStyle = FlatStyle.Flat;
+            btnWallHack.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            btnWallHack.ForeColor = Color.White;
+            btnWallHack.Location = new Point(50, 375);
+            btnWallHack.Name = "btnWallHack";
+            btnWallHack.Size = new Size(200, 40);
+            btnWallHack.TabIndex = 7;
+            btnWallHack.Text = "Ativar Wall Hack";
+            btnWallHack.UseVisualStyleBackColor = false;
+            btnWallHack.Click += btnWallHack_Click;
+            // 
             // lblTitle
             // 
             lblTitle.AutoSize = true;
@@ -122,13 +152,15 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 32, 32);
-            ClientSize = new Size(300, 300);
+            ClientSize = new Size(300, 400);
             Controls.Add(lblInfo);
             Controls.Add(lblTitle);
             Controls.Add(btnStatus);
             Controls.Add(btnToggleAimbot);
             Controls.Add(btnActive);
             Controls.Add(btnNoRecoil);
+            Controls.Add(btnVisionHack);
+            Controls.Add(btnWallHack);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
@@ -144,6 +176,8 @@
         private Button btnToggleAimbot;
         private Button btnStatus;
         private Button btnNoRecoil;
+        private Button btnVisionHack;
+        private Button btnWallHack;
         private Label lblTitle;
         private Label lblInfo;
     }

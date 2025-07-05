@@ -1,67 +1,145 @@
-# Free Fire Aimbot para BlueStacks 4
+# Free Fire Aimbot Panel
 
-## Descrição
-Aimbot otimizado para Free Fire rodando no BlueStacks 4, versão x64. Desenvolvido com a AOB mais recente e offsets específicos para diferentes partes do corpo.
+Um painel de controle para hacks do Free Fire no BlueStacks 4, desenvolvido em C# com interface gráfica moderna.
 
-## Características
-- ✅ Compatível com BlueStacks 4
-- ✅ Versão x64 otimizada
-- ✅ AOB atualizada para Free Fire
-- ✅ Offsets para múltiplas partes do corpo:
-  - Pescoço (Neck): 0x6D (109 decimal)
-  - Pescoço Esquerdo: 0x9D (157 decimal)
-  - Pescoço Direito: 0x99 (153 decimal)
-  - Ombro Esquerdo: 0xA9 (169 decimal)
-  - Ombro Direito: 0xAD (173 decimal)
-- ✅ Interface moderna e intuitiva
-- ✅ Detecção automática do processo
-- ✅ Aplicação segura com delays anti-detecção
+## Funcionalidades
+
+### 🎯 Aimbot
+- **Ativação Automática**: Escaneia e ativa o aimbot automaticamente
+- **Múltiplos Alvos**: Suporte para diferentes partes do corpo (pescoço, ombros)
+- **Reaplicação**: Possibilidade de reaplicar o aimbot durante o jogo
+- **Status em Tempo Real**: Monitoramento do status do aimbot
+
+### 🔫 No Recoil
+- **Eliminação do Recuo**: Remove completamente o recuo das armas
+- **Compatibilidade**: Funciona com todas as armas do jogo
+- **Aplicação Instantânea**: Ativação com um clique
+
+### 👁️ Vision Hack
+- **Visão Melhorada**: Permite ver através de obstáculos
+- **Padrão Otimizado**: Usa padrões AOB específicos para máxima eficiência
+- **Ativação Segura**: Implementação que evita detecção
+
+### 🧱 Wall Hack
+- **Atravessar Paredes**: Permite ver e atirar através de paredes
+- **Padrão Especializado**: Implementação específica para paredes
+- **Compatibilidade Total**: Funciona em todos os mapas
 
 ## Requisitos
-- Windows 10/11
-- .NET 8.0 Runtime
-- BlueStacks 4 instalado
-- Free Fire instalado no BlueStacks
 
-## Instruções de Uso
+- **Sistema Operacional**: Windows 10/11 (x64)
+- **Emulador**: BlueStacks 4
+- **Jogo**: Free Fire
+- **Privilégios**: Executar como Administrador
+- **.NET**: Runtime 8.0 ou superior
 
-### 1. Preparação
-1. Certifique-se de que o BlueStacks 4 está instalado
-2. Instale o Free Fire no BlueStacks
-3. Inicie o Free Fire e entre em uma partida
+## Instalação
 
-### 2. Execução
-1. Execute o arquivo `painelff.exe` como administrador
-2. Clique em "Ativar Aimbot"
-3. Aguarde a mensagem de sucesso
-4. O aimbot será aplicado automaticamente
+1. **Baixe o projeto**:
+   ```bash
+   git clone [URL_DO_REPOSITORIO]
+   cd PAinel-AIM-ff
+   ```
 
-### 3. Controles
-- **Ativar Aimbot**: Escaneia e ativa o aimbot
-- **Aplicar Novamente**: Reaplica o aimbot nos endereços encontrados
-- **Status do Sistema**: Mostra o status atual do sistema
+2. **Compile o projeto**:
+   ```bash
+   dotnet build painelff.sln
+   ```
+
+3. **Execute como Administrador**:
+   - Navegue até `painelff\bin\Debug\net8.0-windows\`
+   - Execute `painelff.exe` como administrador
+
+## Como Usar
+
+### Preparação
+1. Inicie o BlueStacks 4
+2. Abra o Free Fire
+3. Execute o painel como administrador
+
+### Ativação dos Hacks
+
+#### Aimbot
+1. Clique em **"Ativar Aimbot"**
+2. Aguarde a mensagem de sucesso
+3. Use **"Aplicar Novamente"** se necessário
+
+#### No Recoil
+1. Clique em **"Ativar No Recoil"**
+2. O recuo será eliminado instantaneamente
+
+#### Vision Hack
+1. Clique em **"Ativar Vision Hack"**
+2. Aguarde a confirmação de ativação
+3. A visão melhorada estará ativa
+
+#### Wall Hack
+1. Clique em **"Ativar Wall Hack"**
+2. Aguarde a confirmação de ativação
+3. Poderá ver através de paredes
+
+### Monitoramento
+- Use **"Status do Sistema"** para verificar o estado de todos os hacks
+- O painel mostra o status em tempo real de cada funcionalidade
+
+## Estrutura do Projeto
+
+```
+PAinel-AIM-ff/
+├── painelff/
+│   ├── Form1.cs              # Lógica principal dos hacks
+│   ├── Form1.Designer.cs     # Interface gráfica
+│   ├── Program.cs            # Ponto de entrada
+│   └── painelff.csproj       # Configuração do projeto
+├── Build_x64/                # Dependências compiladas
+├── painelff.sln              # Solução do Visual Studio
+└── README.md                 # Este arquivo
+```
+
+## Padrões AOB Utilizados
+
+### Vision Hack
+- **Busca**: `00 00 B4 43 DB 0F 49 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30`
+- **Substituição**: `00 00 B4 43 00 00 A0 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30`
+
+### Wall Hack
+- **Busca**: `09 0E 00 00 80 3F 00 00 80 3F`
+- **Substituição**: `09 0E 00 00 A0 4F 00 00 80 3F`
 
 ## Segurança
-- O programa inclui delays anti-detecção
-- Tratamento de erros silencioso
-- Limpeza automática de recursos ao fechar
 
-## AOB Utilizada
-```
-?? ?? ?? ?? ?? FF FF ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? A5 43 ?? ?? ?? ?? 00 00 ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 80 BF
-```
+⚠️ **Aviso Importante**:
+- Este software é para fins educacionais
+- Use por sua conta e risco
+- Pode resultar em banimento da conta
+- Recomenda-se usar em contas secundárias
 
-## Valor de Escrita
-- Todas as partes do corpo são escritas com o valor: **0x69 (105 decimal)**
+## Suporte
 
-## Compilação
-Para compilar o projeto:
-```bash
-dotnet build --configuration Release --platform x64
-```
+Para problemas ou dúvidas:
+1. Verifique se o BlueStacks 4 está rodando
+2. Certifique-se de executar como administrador
+3. Confirme que o Free Fire está aberto
+4. Verifique o status do sistema
 
-## Aviso Legal
-Este software é fornecido apenas para fins educacionais. O uso em jogos online pode violar os termos de serviço do jogo. Use por sua conta e risco.
+## Changelog
 
-## Versão
-v2.0 - Otimizada para BlueStacks 4 x64 
+### v2.0
+- ✅ Adicionado Vision Hack
+- ✅ Adicionado Wall Hack
+- ✅ Interface atualizada
+- ✅ Status melhorado
+- ✅ Compilação otimizada
+
+### v1.0
+- ✅ Aimbot básico
+- ✅ No Recoil
+- ✅ Interface inicial
+
+## Licença
+
+Este projeto é fornecido "como está" sem garantias. Use por sua conta e risco.
+
+---
+
+**Desenvolvido para fins educacionais e de pesquisa em segurança de jogos.** 

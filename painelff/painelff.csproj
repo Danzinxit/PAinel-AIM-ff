@@ -16,8 +16,10 @@
 
   <ItemGroup>
     <Reference Include="Memory">
-      <HintPath>..\..\Downloads\Build_x64\Memory.dll</HintPath>
+      <HintPath>..\Build_x64\Memory.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  
 
 </Project>
