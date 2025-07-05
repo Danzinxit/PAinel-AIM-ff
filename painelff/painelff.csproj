@@ -6,10 +6,18 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>x64</PlatformTarget>
+    <Platforms>x64</Platforms>
+    <AssemblyTitle>Free Fire Aimbot</AssemblyTitle>
+    <AssemblyDescription>Aimbot otimizado para Free Fire no BlueStacks 4</AssemblyDescription>
+    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Memory.dll.x64" Version="1.2.27" />
+    <Reference Include="Memory">
+      <HintPath>..\..\Downloads\Build_x64\Memory.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
