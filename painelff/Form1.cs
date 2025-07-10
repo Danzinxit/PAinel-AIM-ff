@@ -12,7 +12,6 @@ namespace painelff
         private Mem memory = new Mem();
         private bool isAimbotActive = false;
         private bool isScanning = false;
-        private List<long> aimbotAddresses = new List<long>();
 
         // Sons do sistema
         private SoundPlayer? soundSuccess;
@@ -23,24 +22,6 @@ namespace painelff
         // Timers para animações
         private System.Windows.Forms.Timer? animationTimer;
         private System.Windows.Forms.Timer? pulseTimer;
-
-        // Offsets para diferentes partes do corpo
-        private readonly Dictionary<string, int> bodyOffsets = new Dictionary<string, int>
-        {
-            {"Neck", 0x6D},           // 109 decimal
-            {"NeckLeft", 0x9D},       // 157 decimal  
-            {"NeckRight", 0x99},      // 153 decimal
-            {"LeftShoulder", 0xA9},   // 169 decimal
-            {"RightShoulder", 0xAD}   // 173 decimal
-        };
-
-        // Valor de escrita para todas as partes (105 decimal = 0x69)
-        private const int WRITE_VALUE = 0x69;
-
-        // Novo padrão e offsets para o aimbot
-        private string patternAimbot = "00 00 A5 43 00 00 00 00 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF";
-        private long offset5 = 44L;
-        private long offset6 = 40L;
 
         // Padrões para Vision Hack
         private string patternVisionHackSearch = "00 00 B4 43 DB 0F 49 40 10 2A 00 EE 00 10 80 E5 10 3A 01 EE 14 10 80 E5 00 2A 30 EE 00 10 00 E3 41 3A 30 EE 80 1F 4B E3 01 0A 30";
@@ -262,51 +243,11 @@ namespace painelff
                 // Iniciar animação de loading
                 pulseTimer.Start();
 
-                // Verificar se o processo está rodando
-                var processes = Process.GetProcessesByName("HD-Player");
-                if (processes.Length == 0)
+                // Chamar o novo método Neck() e verificar o resultado
+                bool success = await Neck();
+
+                if (success)
                 {
-                    PlayErrorSound();
-                    AnimateButtonError(btnActive);
-                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Abrir processo se não estiver aberto
-                if (!memory.OpenProcess("HD-Player"))
-                {
-                    PlayErrorSound();
-                    AnimateButtonError(btnActive);
-                    MessageBox.Show("❌ Erro ao abrir processo do BlueStacks.\n\nExecute como administrador.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Usar o novo padrão para o aimbot
-                var scanResults = await Task.Run(() => memory.AoBScan(patternAimbot, true, true));
-
-                if (scanResults != null && scanResults.Any())
-                {
-                    aimbotAddresses.Clear();
-                    // Limitar ao primeiro endereço encontrado
-                    aimbotAddresses.Add(scanResults.First());
-
-                    // Aplicar aimbot nos dois offsets
-                    foreach (var baseAddress in aimbotAddresses)
-                    {
-                        try
-                        {
-                            long addr5 = baseAddress + offset5;
-                            long addr6 = baseAddress + offset6;
-                            memory.WriteMemory(addr5.ToString("X"), "int", WRITE_VALUE.ToString());
-                            memory.WriteMemory(addr6.ToString("X"), "int", WRITE_VALUE.ToString());
-                            await Task.Delay(10);
-                        }
-                        catch (Exception ex)
-                        {
-                            Debug.WriteLine($"Erro ao aplicar aimbot: {ex.Message}");
-                        }
-                    }
-
                     isAimbotActive = true;
                     btnActive.Text = "✅ AIMBOT ATIVO";
                     btnActive.BackColor = Color.FromArgb(0, 150, 100);
@@ -315,13 +256,13 @@ namespace painelff
                     PlaySuccessSound();
                     AnimateButtonSuccess(btnActive);
 
-                    MessageBox.Show($"🎯 Aimbot ativado com sucesso!\n\n📍 Endereços encontrados: {aimbotAddresses.Count}\n⚡ Sistema pronto para uso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("🎯 Aimbot ativado com sucesso!\n\n⚡ Sistema pronto para uso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     PlayErrorSound();
                     AnimateButtonError(btnActive);
-                    MessageBox.Show("⚠️ Nenhum endereço encontrado.\n\nVerifique se o Free Fire está rodando no BlueStacks 4.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("❌ Erro ao ativar Aimbot!\n\nVerifique se:\n• BlueStacks 4 está rodando\n• Free Fire está aberto\n• Execute como administrador", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
@@ -344,35 +285,50 @@ namespace painelff
             }
         }
 
-        private async Task ApplyAimbotToAllParts()
+        static async Task<bool> Neck()
         {
-            foreach (var baseAddress in aimbotAddresses)
+            try
             {
-                try
+                if (Process.GetProcessesByName("HD-Player").Length == 0)
                 {
-                    // Aplicar aimbot para cada parte do corpo
-                    foreach (var offset in bodyOffsets)
-                    {
-                        long targetAddress = baseAddress + offset.Value;
-
-                        // Escrever novo valor (105 decimal = 0x69)
-                        memory.WriteMemory(targetAddress.ToString("X"), "int", WRITE_VALUE.ToString());
-
-                        // Pequena pausa para evitar detecção
-                        await Task.Delay(10);
-                    }
+                    return false;
                 }
-                catch (Exception ex)
+
+                var r = new Mem();
+                if (!r.OpenProcess("HD-Player"))
                 {
-                    // Log silencioso de erros para evitar interrupção
-                    Debug.WriteLine($"Erro ao processar endereço {baseAddress:X}: {ex.Message}");
+                    return false;
                 }
+
+                var Scan = await r.AoBScan("?? ?? ?? ?? ?? FF FF ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? A5 43 ?? ?? ?? ?? 00 00 ?? ?? ?? ?? 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 80 BF", true, true);
+
+                if (Scan == null || !Scan.Any())
+                {
+                    return false;
+                }
+
+                foreach (var current in Scan)
+                {
+                    long rep1 = current + 0xAD;
+                    long rep2 = current + 0X69;
+
+                    var readMem = r.ReadMemory<int>(rep1.ToString("X"));
+                    r.WriteMemory(rep2.ToString("X"), "int", readMem.ToString());
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
 
+
+
         private async void btnToggleAimbot_Click(object sender, EventArgs e)
         {
-            if (!isAimbotActive || aimbotAddresses.Count == 0)
+            if (!isAimbotActive)
             {
                 PlayErrorSound();
                 AnimateButtonError(btnToggleAimbot);
@@ -387,14 +343,24 @@ namespace painelff
                 btnToggleAimbot.Text = "⚡ APLICANDO...";
                 btnToggleAimbot.Enabled = false;
 
-                await ApplyAimbotToAllParts();
+                // Chamar o novo método Neck() novamente
+                bool success = await Neck();
 
-                btnToggleAimbot.Text = "🔄 APLICAR NOVAMENTE";
+                if (success)
+                {
+                    btnToggleAimbot.Text = "🔄 APLICAR NOVAMENTE";
 
-                PlaySuccessSound();
-                AnimateButtonSuccess(btnToggleAimbot);
+                    PlaySuccessSound();
+                    AnimateButtonSuccess(btnToggleAimbot);
 
-                MessageBox.Show("✅ Aimbot aplicado novamente!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("✅ Aimbot aplicado novamente!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    PlayErrorSound();
+                    AnimateButtonError(btnToggleAimbot);
+                    MessageBox.Show("❌ Erro ao reaplicar Aimbot!\n\nVerifique se o BlueStacks 4 ainda está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             catch (Exception ex)
             {
@@ -415,7 +381,6 @@ namespace painelff
             var processes = Process.GetProcessesByName("HD-Player");
             string status = processes.Length > 0 ? "🟢 BlueStacks 4: Ativo" : "🔴 BlueStacks 4: Não encontrado";
             status += $"\n🎯 Aimbot: {(isAimbotActive ? "🟢 Ativo" : "🔴 Inativo")}";
-            status += $"\n📍 Endereços encontrados: {aimbotAddresses.Count}";
             status += $"\n👁️ Vision Hack: {(btnVisionHack.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
             status += $"\n🧱 Wall Hack: {(btnWallHack.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
             status += $"\n🎯 No Recoil: {(btnNoRecoil.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";

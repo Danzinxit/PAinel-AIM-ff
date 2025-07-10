@@ -57,7 +57,7 @@
             // 
             // panelHeader
             // 
-            panelHeader.BackColor = Color.FromArgb(25, 25, 35);
+            panelHeader.BackColor = Color.Black;
             panelHeader.Controls.Add(lblSubtitle);
             panelHeader.Controls.Add(lblTitle);
             panelHeader.Dock = DockStyle.Top;
@@ -106,7 +106,7 @@
             // 
             // panelStatus
             // 
-            panelStatus.BackColor = Color.FromArgb(35, 35, 45);
+            panelStatus.BackColor = Color.Black;
             panelStatus.BorderStyle = BorderStyle.FixedSingle;
             panelStatus.Controls.Add(lblStatusInfo);
             panelStatus.Controls.Add(btnStatus);
@@ -155,7 +155,7 @@
             // 
             // panelHacks
             // 
-            panelHacks.BackColor = Color.FromArgb(35, 35, 45);
+            panelHacks.BackColor = Color.Black;
             panelHacks.BorderStyle = BorderStyle.FixedSingle;
             panelHacks.Controls.Add(btnWallHack);
             panelHacks.Controls.Add(btnVisionHack);
@@ -224,7 +224,7 @@
             // 
             // panelAimbot
             // 
-            panelAimbot.BackColor = Color.FromArgb(35, 35, 45);
+            panelAimbot.BackColor = Color.Black;
             panelAimbot.BorderStyle = BorderStyle.FixedSingle;
             panelAimbot.Controls.Add(btnToggleAimbot);
             panelAimbot.Controls.Add(btnActive);
