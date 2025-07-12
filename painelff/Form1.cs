@@ -31,6 +31,11 @@ namespace painelff
         private string patternWallHackSearch = "09 0E 00 00 80 3F 00 00 80 3F";
         private string patternWallHackReplace = "09 0E 00 00 A0 4F 00 00 80 3F";
 
+        // Padrões para Aimbot Avançado
+        private static string pattern = "00 00 A5 43 00 00 00 00 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF";
+        private static long Offset5 = 44L;
+        private static long offset6 = 40L;
+
         public Form1()
         {
             InitializeComponent();
@@ -90,6 +95,8 @@ namespace painelff
             btnWallHack.MouseLeave += Button_MouseLeave;
             btnStatus.MouseEnter += Button_MouseEnter;
             btnStatus.MouseLeave += Button_MouseLeave;
+            btnNewAimbot.MouseEnter += Button_MouseEnter;
+            btnNewAimbot.MouseLeave += Button_MouseLeave;
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -118,6 +125,8 @@ namespace painelff
                     button.BackColor = Color.FromArgb(80, 80, 90);
                 else if (button == btnStatus)
                     button.BackColor = Color.FromArgb(100, 100, 110);
+                else if (button == btnNewAimbot)
+                    button.BackColor = Color.FromArgb(80, 80, 90);
             }
         }
 
@@ -309,8 +318,47 @@ namespace painelff
 
                 foreach (var current in Scan)
                 {
-                    long rep1 = current + 0xAD;
+                    long rep1 = current + 0x9D;
                     long rep2 = current + 0X69;
+
+                    var readMem = r.ReadMemory<int>(rep1.ToString("X"));
+                    r.WriteMemory(rep2.ToString("X"), "int", readMem.ToString());
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        static async Task<bool> AdvancedAimbot()
+        {
+            try
+            {
+                if (Process.GetProcessesByName("HD-Player").Length == 0)
+                {
+                    return false;
+                }
+
+                var r = new Mem();
+                if (!r.OpenProcess("HD-Player"))
+                {
+                    return false;
+                }
+
+                var Scan = await r.AoBScan(pattern, true, true);
+
+                if (Scan == null || !Scan.Any())
+                {
+                    return false;
+                }
+
+                foreach (var current in Scan)
+                {
+                    long rep1 = current + Offset5;
+                    long rep2 = current + offset6;
 
                     var readMem = r.ReadMemory<int>(rep1.ToString("X"));
                     r.WriteMemory(rep2.ToString("X"), "int", readMem.ToString());
@@ -374,6 +422,56 @@ namespace painelff
             }
         }
 
+        private async void btnNewAimbot_Click(object sender, EventArgs e)
+        {
+            PlayClickSound();
+
+            btnNewAimbot.Text = "⚡ APLICANDO...";
+            btnNewAimbot.Enabled = false;
+            try
+            {
+                // Verificar se o processo está rodando
+                var processes = Process.GetProcessesByName("HD-Player");
+                if (processes.Length == 0)
+                {
+                    PlayErrorSound();
+                    AnimateButtonError(btnNewAimbot);
+                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Chamar o método AdvancedAimbot()
+                bool success = await AdvancedAimbot();
+
+                if (success)
+                {
+                    btnNewAimbot.Text = "✅ AIMBOT AVANÇADO ATIVO";
+                    btnNewAimbot.BackColor = Color.FromArgb(0, 150, 100);
+
+                    PlaySuccessSound();
+                    AnimateButtonSuccess(btnNewAimbot);
+
+                    MessageBox.Show("✅ Aimbot Avançado aplicado com sucesso!\n\n🎯 Sistema de mira avançado ativado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    PlayErrorSound();
+                    AnimateButtonError(btnNewAimbot);
+                    MessageBox.Show("❌ Erro ao aplicar Aimbot Avançado!\n\nVerifique se:\n• BlueStacks 4 está rodando\n• Free Fire está aberto\n• Execute como administrador", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                PlayErrorSound();
+                AnimateButtonError(btnNewAimbot);
+                MessageBox.Show($"❌ Erro ao aplicar Aimbot Avançado:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnNewAimbot.Enabled = true;
+            }
+        }
+
         private void btnStatus_Click(object sender, EventArgs e)
         {
             PlayClickSound();
@@ -381,6 +479,7 @@ namespace painelff
             var processes = Process.GetProcessesByName("HD-Player");
             string status = processes.Length > 0 ? "🟢 BlueStacks 4: Ativo" : "🔴 BlueStacks 4: Não encontrado";
             status += $"\n🎯 Aimbot: {(isAimbotActive ? "🟢 Ativo" : "🔴 Inativo")}";
+            status += $"\n🎯 Aimbot Avançado: {(btnNewAimbot.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
             status += $"\n👁️ Vision Hack: {(btnVisionHack.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
             status += $"\n🧱 Wall Hack: {(btnWallHack.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
             status += $"\n🎯 No Recoil: {(btnNoRecoil.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";

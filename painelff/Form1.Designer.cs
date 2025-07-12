@@ -42,9 +42,10 @@
             btnNoRecoil = new Button();
             lblHacksTitle = new Label();
             panelAimbot = new Panel();
-            btnToggleAimbot = new Button();
-            btnActive = new Button();
             lblAimbotTitle = new Label();
+            btnActive = new Button();
+            btnToggleAimbot = new Button();
+            btnNewAimbot = new Button();
             panelFooter = new Panel();
             lblVersion = new Label();
             panelHeader.SuspendLayout();
@@ -101,7 +102,7 @@
             panelMain.Location = new Point(0, 100);
             panelMain.Name = "panelMain";
             panelMain.Padding = new Padding(20);
-            panelMain.Size = new Size(400, 500);
+            panelMain.Size = new Size(400, 540);
             panelMain.TabIndex = 1;
             // 
             // panelStatus
@@ -111,7 +112,7 @@
             panelStatus.Controls.Add(lblStatusInfo);
             panelStatus.Controls.Add(btnStatus);
             panelStatus.Controls.Add(lblStatusTitle);
-            panelStatus.Location = new Point(20, 380);
+            panelStatus.Location = new Point(20, 420);
             panelStatus.Name = "panelStatus";
             panelStatus.Size = new Size(360, 100);
             panelStatus.TabIndex = 2;
@@ -161,14 +162,14 @@
             panelHacks.Controls.Add(btnVisionHack);
             panelHacks.Controls.Add(btnNoRecoil);
             panelHacks.Controls.Add(lblHacksTitle);
-            panelHacks.Location = new Point(20, 160);
+            panelHacks.Location = new Point(20, 200);
             panelHacks.Name = "panelHacks";
             panelHacks.Size = new Size(360, 200);
             panelHacks.TabIndex = 1;
             // 
             // btnWallHack
             // 
-            btnWallHack.BackColor = Color.FromArgb(80, 80, 90);
+            btnWallHack.BackColor = Color.Red;
             btnWallHack.FlatAppearance.BorderSize = 0;
             btnWallHack.FlatStyle = FlatStyle.Flat;
             btnWallHack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -183,7 +184,7 @@
             // 
             // btnVisionHack
             // 
-            btnVisionHack.BackColor = Color.FromArgb(80, 80, 90);
+            btnVisionHack.BackColor = Color.Red;
             btnVisionHack.FlatAppearance.BorderSize = 0;
             btnVisionHack.FlatStyle = FlatStyle.Flat;
             btnVisionHack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -198,7 +199,7 @@
             // 
             // btnNoRecoil
             // 
-            btnNoRecoil.BackColor = Color.FromArgb(80, 80, 90);
+            btnNoRecoil.BackColor = Color.Red;
             btnNoRecoil.FlatAppearance.BorderSize = 0;
             btnNoRecoil.FlatStyle = FlatStyle.Flat;
             btnNoRecoil.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
@@ -226,13 +227,40 @@
             // 
             panelAimbot.BackColor = Color.Black;
             panelAimbot.BorderStyle = BorderStyle.FixedSingle;
-            panelAimbot.Controls.Add(btnToggleAimbot);
-            panelAimbot.Controls.Add(btnActive);
             panelAimbot.Controls.Add(lblAimbotTitle);
+            panelAimbot.Controls.Add(btnActive);
+            panelAimbot.Controls.Add(btnToggleAimbot);
+            panelAimbot.Controls.Add(btnNewAimbot);
             panelAimbot.Location = new Point(20, 20);
             panelAimbot.Name = "panelAimbot";
-            panelAimbot.Size = new Size(360, 120);
+            panelAimbot.Size = new Size(360, 200);
             panelAimbot.TabIndex = 0;
+            // 
+            // lblAimbotTitle
+            // 
+            lblAimbotTitle.AutoSize = true;
+            lblAimbotTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblAimbotTitle.ForeColor = Color.FromArgb(0, 200, 100);
+            lblAimbotTitle.Location = new Point(15, 15);
+            lblAimbotTitle.Name = "lblAimbotTitle";
+            lblAimbotTitle.Size = new Size(163, 21);
+            lblAimbotTitle.TabIndex = 0;
+            lblAimbotTitle.Text = "🎯 AIMBOT SYSTEM";
+            // 
+            // btnActive
+            // 
+            btnActive.BackColor = Color.FromArgb(0, 120, 215);
+            btnActive.FlatAppearance.BorderSize = 0;
+            btnActive.FlatStyle = FlatStyle.Flat;
+            btnActive.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnActive.ForeColor = Color.White;
+            btnActive.Location = new Point(15, 45);
+            btnActive.Name = "btnActive";
+            btnActive.Size = new Size(160, 40);
+            btnActive.TabIndex = 1;
+            btnActive.Text = "🚀 ATIVAR AIMBOT";
+            btnActive.UseVisualStyleBackColor = false;
+            btnActive.Click += btnActive_Click;
             // 
             // btnToggleAimbot
             // 
@@ -250,38 +278,27 @@
             btnToggleAimbot.UseVisualStyleBackColor = false;
             btnToggleAimbot.Click += btnToggleAimbot_Click;
             // 
-            // btnActive
+            // btnNewAimbot
             // 
-            btnActive.BackColor = Color.FromArgb(0, 120, 215);
-            btnActive.FlatAppearance.BorderSize = 0;
-            btnActive.FlatStyle = FlatStyle.Flat;
-            btnActive.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnActive.ForeColor = Color.White;
-            btnActive.Location = new Point(15, 45);
-            btnActive.Name = "btnActive";
-            btnActive.Size = new Size(160, 40);
-            btnActive.TabIndex = 1;
-            btnActive.Text = "🚀 ATIVAR AIMBOT";
-            btnActive.UseVisualStyleBackColor = false;
-            btnActive.Click += btnActive_Click;
-            // 
-            // lblAimbotTitle
-            // 
-            lblAimbotTitle.AutoSize = true;
-            lblAimbotTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblAimbotTitle.ForeColor = Color.FromArgb(0, 200, 100);
-            lblAimbotTitle.Location = new Point(15, 15);
-            lblAimbotTitle.Name = "lblAimbotTitle";
-            lblAimbotTitle.Size = new Size(163, 21);
-            lblAimbotTitle.TabIndex = 0;
-            lblAimbotTitle.Text = "🎯 AIMBOT SYSTEM";
+            btnNewAimbot.BackColor = Color.FromArgb(80, 80, 90);
+            btnNewAimbot.FlatAppearance.BorderSize = 0;
+            btnNewAimbot.FlatStyle = FlatStyle.Flat;
+            btnNewAimbot.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnNewAimbot.ForeColor = Color.White;
+            btnNewAimbot.Location = new Point(15, 95);
+            btnNewAimbot.Name = "btnNewAimbot";
+            btnNewAimbot.Size = new Size(330, 40);
+            btnNewAimbot.TabIndex = 3;
+            btnNewAimbot.Text = "🎯 AIMBOT AVANÇADO";
+            btnNewAimbot.UseVisualStyleBackColor = false;
+            btnNewAimbot.Click += btnNewAimbot_Click;
             // 
             // panelFooter
             // 
             panelFooter.BackColor = Color.FromArgb(20, 20, 30);
             panelFooter.Controls.Add(lblVersion);
             panelFooter.Dock = DockStyle.Bottom;
-            panelFooter.Location = new Point(0, 600);
+            panelFooter.Location = new Point(0, 640);
             panelFooter.Name = "panelFooter";
             panelFooter.Size = new Size(400, 30);
             panelFooter.TabIndex = 2;
@@ -303,7 +320,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 40);
-            ClientSize = new Size(400, 630);
+            ClientSize = new Size(400, 670);
             Controls.Add(panelMain);
             Controls.Add(panelFooter);
             Controls.Add(panelHeader);
@@ -336,6 +353,7 @@
         private Label lblAimbotTitle;
         private Button btnActive;
         private Button btnToggleAimbot;
+        private Button btnNewAimbot;
         private Panel panelHacks;
         private Label lblHacksTitle;
         private Button btnNoRecoil;
