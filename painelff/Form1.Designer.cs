@@ -36,24 +36,26 @@
             lblStatusInfo = new Label();
             btnStatus = new Button();
             lblStatusTitle = new Label();
-            panelHacks = new Panel();
-            btnWallHack = new Button();
-            btnVisionHack = new Button();
-            btnNoRecoil = new Button();
-            lblHacksTitle = new Label();
             panelAimbot = new Panel();
             lblAimbotTitle = new Label();
             btnActive = new Button();
-            btnToggleAimbot = new Button();
             btnNewAimbot = new Button();
             panelFooter = new Panel();
             lblVersion = new Label();
+            panelSidebar = new Panel();
+            btnConfig = new Button();
+            btnHacksPro = new Button();
+            panelConfigOptions = new Panel();
+            btnDestruct = new Button();
+            btnLimparLogs = new Button();
+            btnFechar = new Button();
             panelHeader.SuspendLayout();
             panelMain.SuspendLayout();
             panelStatus.SuspendLayout();
-            panelHacks.SuspendLayout();
             panelAimbot.SuspendLayout();
             panelFooter.SuspendLayout();
+            panelSidebar.SuspendLayout();
+            panelConfigOptions.SuspendLayout();
             SuspendLayout();
             // 
             // panelHeader
@@ -62,9 +64,9 @@
             panelHeader.Controls.Add(lblSubtitle);
             panelHeader.Controls.Add(lblTitle);
             panelHeader.Dock = DockStyle.Top;
-            panelHeader.Location = new Point(0, 0);
+            panelHeader.Location = new Point(60, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(400, 100);
+            panelHeader.Size = new Size(340, 100);
             panelHeader.TabIndex = 0;
             // 
             // lblSubtitle
@@ -96,13 +98,12 @@
             // 
             panelMain.BackColor = Color.FromArgb(30, 30, 40);
             panelMain.Controls.Add(panelStatus);
-            panelMain.Controls.Add(panelHacks);
             panelMain.Controls.Add(panelAimbot);
             panelMain.Dock = DockStyle.Fill;
-            panelMain.Location = new Point(0, 100);
+            panelMain.Location = new Point(60, 100);
             panelMain.Name = "panelMain";
             panelMain.Padding = new Padding(20);
-            panelMain.Size = new Size(400, 540);
+            panelMain.Size = new Size(340, 540);
             panelMain.TabIndex = 1;
             // 
             // panelStatus
@@ -112,9 +113,9 @@
             panelStatus.Controls.Add(lblStatusInfo);
             panelStatus.Controls.Add(btnStatus);
             panelStatus.Controls.Add(lblStatusTitle);
-            panelStatus.Location = new Point(20, 420);
+            panelStatus.Location = new Point(6, 232);
             panelStatus.Name = "panelStatus";
-            panelStatus.Size = new Size(360, 100);
+            panelStatus.Size = new Size(295, 100);
             panelStatus.TabIndex = 2;
             // 
             // lblStatusInfo
@@ -122,7 +123,7 @@
             lblStatusInfo.AutoSize = true;
             lblStatusInfo.Font = new Font("Segoe UI", 8F);
             lblStatusInfo.ForeColor = Color.Silver;
-            lblStatusInfo.Location = new Point(15, 80);
+            lblStatusInfo.Location = new Point(29, 76);
             lblStatusInfo.Name = "lblStatusInfo";
             lblStatusInfo.Size = new Size(265, 13);
             lblStatusInfo.TabIndex = 2;
@@ -135,9 +136,9 @@
             btnStatus.FlatStyle = FlatStyle.Flat;
             btnStatus.Font = new Font("Segoe UI", 9F);
             btnStatus.ForeColor = Color.White;
-            btnStatus.Location = new Point(15, 45);
+            btnStatus.Location = new Point(40, 45);
             btnStatus.Name = "btnStatus";
-            btnStatus.Size = new Size(330, 30);
+            btnStatus.Size = new Size(230, 28);
             btnStatus.TabIndex = 1;
             btnStatus.Text = "🔍 VERIFICAR STATUS DO SISTEMA";
             btnStatus.UseVisualStyleBackColor = false;
@@ -148,80 +149,11 @@
             lblStatusTitle.AutoSize = true;
             lblStatusTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblStatusTitle.ForeColor = Color.FromArgb(150, 150, 255);
-            lblStatusTitle.Location = new Point(15, 15);
+            lblStatusTitle.Location = new Point(103, 18);
             lblStatusTitle.Name = "lblStatusTitle";
             lblStatusTitle.Size = new Size(94, 21);
             lblStatusTitle.TabIndex = 0;
             lblStatusTitle.Text = "📊 STATUS";
-            // 
-            // panelHacks
-            // 
-            panelHacks.BackColor = Color.Black;
-            panelHacks.BorderStyle = BorderStyle.FixedSingle;
-            panelHacks.Controls.Add(btnWallHack);
-            panelHacks.Controls.Add(btnVisionHack);
-            panelHacks.Controls.Add(btnNoRecoil);
-            panelHacks.Controls.Add(lblHacksTitle);
-            panelHacks.Location = new Point(20, 200);
-            panelHacks.Name = "panelHacks";
-            panelHacks.Size = new Size(360, 200);
-            panelHacks.TabIndex = 1;
-            // 
-            // btnWallHack
-            // 
-            btnWallHack.BackColor = Color.Red;
-            btnWallHack.FlatAppearance.BorderSize = 0;
-            btnWallHack.FlatStyle = FlatStyle.Flat;
-            btnWallHack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnWallHack.ForeColor = Color.White;
-            btnWallHack.Location = new Point(15, 125);
-            btnWallHack.Name = "btnWallHack";
-            btnWallHack.Size = new Size(330, 35);
-            btnWallHack.TabIndex = 3;
-            btnWallHack.Text = "\U0001f9f1 WALL HACK";
-            btnWallHack.UseVisualStyleBackColor = false;
-            btnWallHack.Click += btnWallHack_Click;
-            // 
-            // btnVisionHack
-            // 
-            btnVisionHack.BackColor = Color.Red;
-            btnVisionHack.FlatAppearance.BorderSize = 0;
-            btnVisionHack.FlatStyle = FlatStyle.Flat;
-            btnVisionHack.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnVisionHack.ForeColor = Color.White;
-            btnVisionHack.Location = new Point(15, 85);
-            btnVisionHack.Name = "btnVisionHack";
-            btnVisionHack.Size = new Size(330, 35);
-            btnVisionHack.TabIndex = 2;
-            btnVisionHack.Text = "👁️ VISION HACK";
-            btnVisionHack.UseVisualStyleBackColor = false;
-            btnVisionHack.Click += btnVisionHack_Click;
-            // 
-            // btnNoRecoil
-            // 
-            btnNoRecoil.BackColor = Color.Red;
-            btnNoRecoil.FlatAppearance.BorderSize = 0;
-            btnNoRecoil.FlatStyle = FlatStyle.Flat;
-            btnNoRecoil.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnNoRecoil.ForeColor = Color.White;
-            btnNoRecoil.Location = new Point(15, 45);
-            btnNoRecoil.Name = "btnNoRecoil";
-            btnNoRecoil.Size = new Size(330, 35);
-            btnNoRecoil.TabIndex = 1;
-            btnNoRecoil.Text = "🎯 NO RECOIL";
-            btnNoRecoil.UseVisualStyleBackColor = false;
-            btnNoRecoil.Click += btnNoRecoil_Click;
-            // 
-            // lblHacksTitle
-            // 
-            lblHacksTitle.AutoSize = true;
-            lblHacksTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblHacksTitle.ForeColor = Color.FromArgb(255, 150, 0);
-            lblHacksTitle.Location = new Point(15, 15);
-            lblHacksTitle.Name = "lblHacksTitle";
-            lblHacksTitle.Size = new Size(125, 21);
-            lblHacksTitle.TabIndex = 0;
-            lblHacksTitle.Text = "⚡ HACKS PRO";
             // 
             // panelAimbot
             // 
@@ -229,11 +161,10 @@
             panelAimbot.BorderStyle = BorderStyle.FixedSingle;
             panelAimbot.Controls.Add(lblAimbotTitle);
             panelAimbot.Controls.Add(btnActive);
-            panelAimbot.Controls.Add(btnToggleAimbot);
             panelAimbot.Controls.Add(btnNewAimbot);
-            panelAimbot.Location = new Point(20, 20);
+            panelAimbot.Location = new Point(26, 6);
             panelAimbot.Name = "panelAimbot";
-            panelAimbot.Size = new Size(360, 200);
+            panelAimbot.Size = new Size(275, 200);
             panelAimbot.TabIndex = 0;
             // 
             // lblAimbotTitle
@@ -241,7 +172,7 @@
             lblAimbotTitle.AutoSize = true;
             lblAimbotTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblAimbotTitle.ForeColor = Color.FromArgb(0, 200, 100);
-            lblAimbotTitle.Location = new Point(15, 15);
+            lblAimbotTitle.Location = new Point(51, 13);
             lblAimbotTitle.Name = "lblAimbotTitle";
             lblAimbotTitle.Size = new Size(163, 21);
             lblAimbotTitle.TabIndex = 0;
@@ -254,29 +185,13 @@
             btnActive.FlatStyle = FlatStyle.Flat;
             btnActive.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnActive.ForeColor = Color.White;
-            btnActive.Location = new Point(15, 45);
+            btnActive.Location = new Point(51, 47);
             btnActive.Name = "btnActive";
-            btnActive.Size = new Size(160, 40);
+            btnActive.Size = new Size(167, 32);
             btnActive.TabIndex = 1;
             btnActive.Text = "🚀 ATIVAR AIMBOT";
             btnActive.UseVisualStyleBackColor = false;
             btnActive.Click += btnActive_Click;
-            // 
-            // btnToggleAimbot
-            // 
-            btnToggleAimbot.BackColor = Color.FromArgb(60, 60, 70);
-            btnToggleAimbot.Enabled = false;
-            btnToggleAimbot.FlatAppearance.BorderSize = 0;
-            btnToggleAimbot.FlatStyle = FlatStyle.Flat;
-            btnToggleAimbot.Font = new Font("Segoe UI", 9F);
-            btnToggleAimbot.ForeColor = Color.Silver;
-            btnToggleAimbot.Location = new Point(185, 45);
-            btnToggleAimbot.Name = "btnToggleAimbot";
-            btnToggleAimbot.Size = new Size(160, 40);
-            btnToggleAimbot.TabIndex = 2;
-            btnToggleAimbot.Text = "🔄 APLICAR NOVAMENTE";
-            btnToggleAimbot.UseVisualStyleBackColor = false;
-            btnToggleAimbot.Click += btnToggleAimbot_Click;
             // 
             // btnNewAimbot
             // 
@@ -285,9 +200,9 @@
             btnNewAimbot.FlatStyle = FlatStyle.Flat;
             btnNewAimbot.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnNewAimbot.ForeColor = Color.White;
-            btnNewAimbot.Location = new Point(15, 95);
+            btnNewAimbot.Location = new Point(41, 94);
             btnNewAimbot.Name = "btnNewAimbot";
-            btnNewAimbot.Size = new Size(330, 40);
+            btnNewAimbot.Size = new Size(189, 54);
             btnNewAimbot.TabIndex = 3;
             btnNewAimbot.Text = "🎯 AIMBOT AVANÇADO";
             btnNewAimbot.UseVisualStyleBackColor = false;
@@ -298,9 +213,9 @@
             panelFooter.BackColor = Color.FromArgb(20, 20, 30);
             panelFooter.Controls.Add(lblVersion);
             panelFooter.Dock = DockStyle.Bottom;
-            panelFooter.Location = new Point(0, 640);
+            panelFooter.Location = new Point(60, 640);
             panelFooter.Name = "panelFooter";
-            panelFooter.Size = new Size(400, 30);
+            panelFooter.Size = new Size(340, 30);
             panelFooter.TabIndex = 2;
             // 
             // lblVersion
@@ -315,6 +230,102 @@
             lblVersion.Text = "© 2024 Danzin XITS Pro • Versão 1.0 • Desenvolvido com ❤️";
             lblVersion.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // panelSidebar
+            // 
+            panelSidebar.BackColor = Color.FromArgb(20, 20, 30);
+            panelSidebar.Controls.Add(btnConfig);
+            panelSidebar.Controls.Add(btnHacksPro);
+            panelSidebar.Dock = DockStyle.Left;
+            panelSidebar.Location = new Point(0, 0);
+            panelSidebar.Name = "panelSidebar";
+            panelSidebar.Size = new Size(60, 670);
+            panelSidebar.TabIndex = 100;
+            // 
+            // btnConfig
+            // 
+            btnConfig.BackColor = Color.FromArgb(30, 30, 40);
+            btnConfig.Cursor = Cursors.Hand;
+            btnConfig.FlatAppearance.BorderSize = 0;
+            btnConfig.FlatStyle = FlatStyle.Flat;
+            btnConfig.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnConfig.ForeColor = Color.White;
+            btnConfig.Location = new Point(12, 66);
+            btnConfig.Name = "btnConfig";
+            btnConfig.Size = new Size(36, 36);
+            btnConfig.TabIndex = 101;
+            btnConfig.Text = "⚙";
+            btnConfig.UseVisualStyleBackColor = false;
+            // 
+            // btnHacksPro
+            // 
+            btnHacksPro.BackColor = Color.FromArgb(30, 30, 40);
+            btnHacksPro.Cursor = Cursors.Hand;
+            btnHacksPro.FlatAppearance.BorderSize = 0;
+            btnHacksPro.FlatStyle = FlatStyle.Flat;
+            btnHacksPro.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            btnHacksPro.ForeColor = Color.Orange;
+            btnHacksPro.Location = new Point(12, 20);
+            btnHacksPro.Name = "btnHacksPro";
+            btnHacksPro.Size = new Size(36, 36);
+            btnHacksPro.TabIndex = 102;
+            btnHacksPro.Text = "⚡";
+            btnHacksPro.UseVisualStyleBackColor = false;
+            // 
+            // panelConfigOptions
+            // 
+            panelConfigOptions.BackColor = Color.FromArgb(35, 35, 45);
+            panelConfigOptions.BorderStyle = BorderStyle.FixedSingle;
+            panelConfigOptions.Controls.Add(btnDestruct);
+            panelConfigOptions.Controls.Add(btnLimparLogs);
+            panelConfigOptions.Controls.Add(btnFechar);
+            panelConfigOptions.Location = new Point(284, 261);
+            panelConfigOptions.Name = "panelConfigOptions";
+            panelConfigOptions.Size = new Size(260, 200);
+            panelConfigOptions.TabIndex = 101;
+            panelConfigOptions.Visible = false;
+            // 
+            // btnDestruct
+            // 
+            btnDestruct.BackColor = Color.FromArgb(200, 50, 50);
+            btnDestruct.FlatAppearance.BorderSize = 0;
+            btnDestruct.FlatStyle = FlatStyle.Flat;
+            btnDestruct.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnDestruct.ForeColor = Color.White;
+            btnDestruct.Location = new Point(20, 20);
+            btnDestruct.Name = "btnDestruct";
+            btnDestruct.Size = new Size(220, 40);
+            btnDestruct.TabIndex = 0;
+            btnDestruct.Text = "Destruct Painel";
+            btnDestruct.UseVisualStyleBackColor = false;
+            // 
+            // btnLimparLogs
+            // 
+            btnLimparLogs.BackColor = Color.FromArgb(80, 80, 90);
+            btnLimparLogs.FlatAppearance.BorderSize = 0;
+            btnLimparLogs.FlatStyle = FlatStyle.Flat;
+            btnLimparLogs.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLimparLogs.ForeColor = Color.White;
+            btnLimparLogs.Location = new Point(20, 70);
+            btnLimparLogs.Name = "btnLimparLogs";
+            btnLimparLogs.Size = new Size(220, 40);
+            btnLimparLogs.TabIndex = 1;
+            btnLimparLogs.Text = "Limpar Logs";
+            btnLimparLogs.UseVisualStyleBackColor = false;
+            // 
+            // btnFechar
+            // 
+            btnFechar.BackColor = Color.FromArgb(60, 60, 70);
+            btnFechar.FlatAppearance.BorderSize = 0;
+            btnFechar.FlatStyle = FlatStyle.Flat;
+            btnFechar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnFechar.ForeColor = Color.White;
+            btnFechar.Location = new Point(20, 120);
+            btnFechar.Name = "btnFechar";
+            btnFechar.Size = new Size(220, 40);
+            btnFechar.TabIndex = 2;
+            btnFechar.Text = "Fechar";
+            btnFechar.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -324,6 +335,8 @@
             Controls.Add(panelMain);
             Controls.Add(panelFooter);
             Controls.Add(panelHeader);
+            Controls.Add(panelSidebar);
+            Controls.Add(panelConfigOptions);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             Name = "Form1";
@@ -334,12 +347,12 @@
             panelMain.ResumeLayout(false);
             panelStatus.ResumeLayout(false);
             panelStatus.PerformLayout();
-            panelHacks.ResumeLayout(false);
-            panelHacks.PerformLayout();
             panelAimbot.ResumeLayout(false);
             panelAimbot.PerformLayout();
             panelFooter.ResumeLayout(false);
             panelFooter.PerformLayout();
+            panelSidebar.ResumeLayout(false);
+            panelConfigOptions.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -352,18 +365,19 @@
         private Panel panelAimbot;
         private Label lblAimbotTitle;
         private Button btnActive;
-        private Button btnToggleAimbot;
         private Button btnNewAimbot;
-        private Panel panelHacks;
-        private Label lblHacksTitle;
-        private Button btnNoRecoil;
-        private Button btnVisionHack;
-        private Button btnWallHack;
         private Panel panelStatus;
         private Label lblStatusTitle;
         private Button btnStatus;
         private Label lblStatusInfo;
         private Panel panelFooter;
         private Label lblVersion;
+        private Panel panelSidebar;
+        private Button btnConfig;
+        private Panel panelConfigOptions;
+        private Button btnDestruct;
+        private Button btnLimparLogs;
+        private Button btnFechar;
+        private Button btnHacksPro;
     }
 }
