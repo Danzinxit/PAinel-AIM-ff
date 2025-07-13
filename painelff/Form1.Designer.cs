@@ -40,6 +40,7 @@
             lblAimbotTitle = new Label();
             btnActive = new Button();
             btnNewAimbot = new Button();
+            btnSafeAimbot = new Button();
             panelFooter = new Panel();
             lblVersion = new Label();
             panelSidebar = new Panel();
@@ -74,7 +75,7 @@
             lblSubtitle.AutoSize = true;
             lblSubtitle.Font = new Font("Segoe UI", 10F);
             lblSubtitle.ForeColor = Color.Silver;
-            lblSubtitle.Location = new Point(82, 55);
+            lblSubtitle.Location = new Point(63, 54);
             lblSubtitle.Name = "lblSubtitle";
             lblSubtitle.Size = new Size(219, 19);
             lblSubtitle.TabIndex = 1;
@@ -86,7 +87,7 @@
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblTitle.ForeColor = Color.FromArgb(0, 150, 255);
-            lblTitle.Location = new Point(68, 18);
+            lblTitle.Location = new Point(52, 17);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(233, 37);
             lblTitle.TabIndex = 0;
@@ -113,7 +114,7 @@
             panelStatus.Controls.Add(lblStatusInfo);
             panelStatus.Controls.Add(btnStatus);
             panelStatus.Controls.Add(lblStatusTitle);
-            panelStatus.Location = new Point(6, 232);
+            panelStatus.Location = new Point(22, 232);
             panelStatus.Name = "panelStatus";
             panelStatus.Size = new Size(295, 100);
             panelStatus.TabIndex = 2;
@@ -123,7 +124,7 @@
             lblStatusInfo.AutoSize = true;
             lblStatusInfo.Font = new Font("Segoe UI", 8F);
             lblStatusInfo.ForeColor = Color.Silver;
-            lblStatusInfo.Location = new Point(29, 76);
+            lblStatusInfo.Location = new Point(13, 76);
             lblStatusInfo.Name = "lblStatusInfo";
             lblStatusInfo.Size = new Size(265, 13);
             lblStatusInfo.TabIndex = 2;
@@ -162,9 +163,10 @@
             panelAimbot.Controls.Add(lblAimbotTitle);
             panelAimbot.Controls.Add(btnActive);
             panelAimbot.Controls.Add(btnNewAimbot);
+            panelAimbot.Controls.Add(btnSafeAimbot);
             panelAimbot.Location = new Point(26, 6);
             panelAimbot.Name = "panelAimbot";
-            panelAimbot.Size = new Size(275, 200);
+            panelAimbot.Size = new Size(275, 210);
             panelAimbot.TabIndex = 0;
             // 
             // lblAimbotTitle
@@ -208,6 +210,21 @@
             btnNewAimbot.UseVisualStyleBackColor = false;
             btnNewAimbot.Click += btnNewAimbot_Click;
             // 
+            // btnSafeAimbot
+            // 
+            btnSafeAimbot.BackColor = Color.FromArgb(60, 120, 60);
+            btnSafeAimbot.FlatAppearance.BorderSize = 0;
+            btnSafeAimbot.FlatStyle = FlatStyle.Flat;
+            btnSafeAimbot.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSafeAimbot.ForeColor = Color.White;
+            btnSafeAimbot.Location = new Point(41, 155);
+            btnSafeAimbot.Name = "btnSafeAimbot";
+            btnSafeAimbot.Size = new Size(189, 38);
+            btnSafeAimbot.TabIndex = 4;
+            btnSafeAimbot.Text = "🛡️ AIMBOT SAFE";
+            btnSafeAimbot.UseVisualStyleBackColor = false;
+            btnSafeAimbot.Click += btnSafeAimbot_Click;
+            // 
             // panelFooter
             // 
             panelFooter.BackColor = Color.FromArgb(20, 20, 30);
@@ -223,7 +240,7 @@
             lblVersion.AutoSize = true;
             lblVersion.Font = new Font("Segoe UI", 8F);
             lblVersion.ForeColor = Color.Gray;
-            lblVersion.Location = new Point(47, 8);
+            lblVersion.Location = new Point(11, 8);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(306, 13);
             lblVersion.TabIndex = 0;
@@ -379,5 +396,6 @@
         private Button btnLimparLogs;
         private Button btnFechar;
         private Button btnHacksPro;
+        private Button btnSafeAimbot;
     }
 }

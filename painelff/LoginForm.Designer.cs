@@ -26,158 +26,152 @@ namespace painelff
 
         private void InitializeComponent()
         {
-            this.lblTitle = new System.Windows.Forms.Label();
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.lblSenha = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtSenha = new System.Windows.Forms.TextBox();
-            this.btnEntrar = new System.Windows.Forms.Button();
-            this.rememberCheckBox = new System.Windows.Forms.CheckBox();
-            this.btnRegistrar = new System.Windows.Forms.Button();
-            this.ProgressTimer = new System.Windows.Forms.Timer();
-            this.guna2ProgressBar1 = new System.Windows.Forms.ProgressBar();
-            this.statusLabel = new System.Windows.Forms.Label();
-            this.SuspendLayout();
-            // 
-            // LoginForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(30, 30, 40);
-            this.ClientSize = new System.Drawing.Size(340, 400);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "LoginForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login - Painel";
+            components = new System.ComponentModel.Container();
+            lblTitle = new Label();
+            lblUsuario = new Label();
+            lblSenha = new Label();
+            txtUsuario = new TextBox();
+            txtSenha = new TextBox();
+            btnEntrar = new Button();
+            rememberCheckBox = new CheckBox();
+            btnRegistrar = new Button();
+            ProgressTimer = new System.Windows.Forms.Timer(components);
+            guna2ProgressBar1 = new ProgressBar();
+            statusLabel = new Label();
+            SuspendLayout();
             // 
             // lblTitle
             // 
-            this.lblTitle.AutoSize = true;
-            this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(0, 150, 255);
-            this.lblTitle.Location = new System.Drawing.Point(60, 30);
-            this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(220, 37);
-            this.lblTitle.TabIndex = 0;
-            this.lblTitle.Text = "🔐 LOGIN PAINEL";
-            this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.FromArgb(0, 150, 255);
+            lblTitle.Location = new Point(60, 30);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(243, 37);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "🔐 LOGIN PAINEL";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblUsuario
             // 
-            this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblUsuario.ForeColor = System.Drawing.Color.Silver;
-            this.lblUsuario.Location = new System.Drawing.Point(40, 90);
-            this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(65, 20);
-            this.lblUsuario.TabIndex = 1;
-            this.lblUsuario.Text = "Usuário";
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtUsuario.Location = new System.Drawing.Point(40, 115);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(260, 27);
-            this.txtUsuario.TabIndex = 2;
+            lblUsuario.AutoSize = true;
+            lblUsuario.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblUsuario.ForeColor = Color.Silver;
+            lblUsuario.Location = new Point(40, 90);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(63, 20);
+            lblUsuario.TabIndex = 1;
+            lblUsuario.Text = "Usuário";
             // 
             // lblSenha
             // 
-            this.lblSenha.AutoSize = true;
-            this.lblSenha.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.lblSenha.ForeColor = System.Drawing.Color.Silver;
-            this.lblSenha.Location = new System.Drawing.Point(40, 155);
-            this.lblSenha.Name = "lblSenha";
-            this.lblSenha.Size = new System.Drawing.Size(54, 20);
-            this.lblSenha.TabIndex = 3;
-            this.lblSenha.Text = "Senha";
+            lblSenha.AutoSize = true;
+            lblSenha.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            lblSenha.ForeColor = Color.Silver;
+            lblSenha.Location = new Point(40, 155);
+            lblSenha.Name = "lblSenha";
+            lblSenha.Size = new Size(51, 20);
+            lblSenha.TabIndex = 3;
+            lblSenha.Text = "Senha";
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.Font = new Font("Segoe UI", 11F);
+            txtUsuario.Location = new Point(40, 115);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(260, 27);
+            txtUsuario.TabIndex = 2;
             // 
             // txtSenha
             // 
-            this.txtSenha.Font = new System.Drawing.Font("Segoe UI", 11F);
-            this.txtSenha.Location = new System.Drawing.Point(40, 180);
-            this.txtSenha.Name = "txtSenha";
-            this.txtSenha.PasswordChar = '●';
-            this.txtSenha.Size = new System.Drawing.Size(260, 27);
-            this.txtSenha.TabIndex = 4;
-            // 
-            // rememberCheckBox
-            // 
-            this.rememberCheckBox.AutoSize = true;
-            this.rememberCheckBox.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.rememberCheckBox.ForeColor = System.Drawing.Color.Silver;
-            this.rememberCheckBox.Location = new System.Drawing.Point(40, 215);
-            this.rememberCheckBox.Name = "rememberCheckBox";
-            this.rememberCheckBox.Size = new System.Drawing.Size(104, 19);
-            this.rememberCheckBox.TabIndex = 5;
-            this.rememberCheckBox.Text = "Lembrar login";
-            this.rememberCheckBox.UseVisualStyleBackColor = true;
+            txtSenha.Font = new Font("Segoe UI", 11F);
+            txtSenha.Location = new Point(40, 180);
+            txtSenha.Name = "txtSenha";
+            txtSenha.PasswordChar = '●';
+            txtSenha.Size = new Size(260, 27);
+            txtSenha.TabIndex = 4;
             // 
             // btnEntrar
             // 
-            this.btnEntrar.BackColor = System.Drawing.Color.FromArgb(0, 120, 215);
-            this.btnEntrar.FlatAppearance.BorderSize = 0;
-            this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEntrar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnEntrar.ForeColor = System.Drawing.Color.White;
-            this.btnEntrar.Location = new System.Drawing.Point(40, 250);
-            this.btnEntrar.Name = "btnEntrar";
-            this.btnEntrar.Size = new System.Drawing.Size(260, 35);
-            this.btnEntrar.TabIndex = 6;
-            this.btnEntrar.Text = "Entrar";
-            this.btnEntrar.UseVisualStyleBackColor = false;
+            btnEntrar.BackColor = Color.Navy;
+            btnEntrar.FlatAppearance.BorderSize = 0;
+            btnEntrar.FlatStyle = FlatStyle.Flat;
+            btnEntrar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnEntrar.ForeColor = Color.White;
+            btnEntrar.Location = new Point(40, 250);
+            btnEntrar.Name = "btnEntrar";
+            btnEntrar.Size = new Size(260, 35);
+            btnEntrar.TabIndex = 6;
+            btnEntrar.Text = "Entrar";
+            btnEntrar.UseVisualStyleBackColor = false;
+            // 
+            // rememberCheckBox
+            // 
+            rememberCheckBox.AutoSize = true;
+            rememberCheckBox.Font = new Font("Segoe UI", 9F);
+            rememberCheckBox.ForeColor = Color.Silver;
+            rememberCheckBox.Location = new Point(40, 215);
+            rememberCheckBox.Name = "rememberCheckBox";
+            rememberCheckBox.Size = new Size(100, 19);
+            rememberCheckBox.TabIndex = 5;
+            rememberCheckBox.Text = "Lembrar login";
+            rememberCheckBox.UseVisualStyleBackColor = true;
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.BackColor = System.Drawing.Color.FromArgb(255, 150, 0);
-            this.btnRegistrar.FlatAppearance.BorderSize = 0;
-            this.btnRegistrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRegistrar.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnRegistrar.ForeColor = System.Drawing.Color.White;
-            this.btnRegistrar.Location = new System.Drawing.Point(40, 295);
-            this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(260, 35);
-            this.btnRegistrar.TabIndex = 7;
-            this.btnRegistrar.Text = "Registrar-se";
-            this.btnRegistrar.UseVisualStyleBackColor = false;
+            btnRegistrar.BackColor = Color.FromArgb(255, 150, 0);
+            btnRegistrar.FlatAppearance.BorderSize = 0;
+            btnRegistrar.FlatStyle = FlatStyle.Flat;
+            btnRegistrar.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnRegistrar.ForeColor = Color.White;
+            btnRegistrar.Location = new Point(40, 295);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.Size = new Size(260, 35);
+            btnRegistrar.TabIndex = 7;
+            btnRegistrar.Text = "Registrar-se";
+            btnRegistrar.UseVisualStyleBackColor = false;
             // 
             // guna2ProgressBar1
             // 
-            this.guna2ProgressBar1.Location = new System.Drawing.Point(40, 345);
-            this.guna2ProgressBar1.Name = "guna2ProgressBar1";
-            this.guna2ProgressBar1.Size = new System.Drawing.Size(260, 10);
-            this.guna2ProgressBar1.TabIndex = 8;
+            guna2ProgressBar1.Location = new Point(40, 345);
+            guna2ProgressBar1.Name = "guna2ProgressBar1";
+            guna2ProgressBar1.Size = new Size(260, 10);
+            guna2ProgressBar1.TabIndex = 8;
             // 
             // statusLabel
             // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.statusLabel.ForeColor = System.Drawing.Color.FromArgb(0, 200, 100);
-            this.statusLabel.Location = new System.Drawing.Point(40, 360);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(0, 15);
-            this.statusLabel.TabIndex = 9;
+            statusLabel.AutoSize = true;
+            statusLabel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            statusLabel.ForeColor = Color.FromArgb(0, 200, 100);
+            statusLabel.Location = new Point(40, 360);
+            statusLabel.Name = "statusLabel";
+            statusLabel.Size = new Size(0, 15);
+            statusLabel.TabIndex = 9;
             // 
-            // ProgressTimer
+            // LoginForm
             // 
-            this.ProgressTimer.Enabled = false;
-            // 
-            // Adicionando controles ao formulário
-            // 
-            this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.lblUsuario);
-            this.Controls.Add(this.txtUsuario);
-            this.Controls.Add(this.lblSenha);
-            this.Controls.Add(this.txtSenha);
-            this.Controls.Add(this.rememberCheckBox);
-            this.Controls.Add(this.btnEntrar);
-            this.Controls.Add(this.btnRegistrar);
-            this.Controls.Add(this.guna2ProgressBar1);
-            this.Controls.Add(this.statusLabel);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Black;
+            ClientSize = new Size(340, 400);
+            Controls.Add(lblTitle);
+            Controls.Add(lblUsuario);
+            Controls.Add(txtUsuario);
+            Controls.Add(lblSenha);
+            Controls.Add(txtSenha);
+            Controls.Add(rememberCheckBox);
+            Controls.Add(btnEntrar);
+            Controls.Add(btnRegistrar);
+            Controls.Add(guna2ProgressBar1);
+            Controls.Add(statusLabel);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Login - Painel";
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 } 

@@ -23,105 +23,109 @@ namespace painelff
 
         private void InitializeComponent()
         {
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.lblSenha = new System.Windows.Forms.Label();
-            this.lblKey = new System.Windows.Forms.Label();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtSenha = new System.Windows.Forms.TextBox();
-            this.txtKey = new System.Windows.Forms.TextBox();
-            this.btnRegistrar = new System.Windows.Forms.Button();
-            this.statusLabel = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            lblUsuario = new Label();
+            lblSenha = new Label();
+            lblKey = new Label();
+            txtUsuario = new TextBox();
+            txtSenha = new TextBox();
+            txtKey = new TextBox();
+            btnRegistrar = new Button();
+            statusLabel = new Label();
+            SuspendLayout();
             // 
             // lblUsuario
             // 
-            this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(30, 20);
-            this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(47, 15);
-            this.lblUsuario.TabIndex = 0;
-            this.lblUsuario.Text = "Usuário";
-            // 
-            // txtUsuario
-            // 
-            this.txtUsuario.Location = new System.Drawing.Point(30, 40);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(200, 23);
-            this.txtUsuario.TabIndex = 1;
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(30, 20);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(47, 15);
+            lblUsuario.TabIndex = 0;
+            lblUsuario.Text = "Usuário";
             // 
             // lblSenha
             // 
-            this.lblSenha.AutoSize = true;
-            this.lblSenha.Location = new System.Drawing.Point(30, 70);
-            this.lblSenha.Name = "lblSenha";
-            this.lblSenha.Size = new System.Drawing.Size(39, 15);
-            this.lblSenha.TabIndex = 2;
-            this.lblSenha.Text = "Senha";
-            // 
-            // txtSenha
-            // 
-            this.txtSenha.Location = new System.Drawing.Point(30, 90);
-            this.txtSenha.Name = "txtSenha";
-            this.txtSenha.PasswordChar = '●';
-            this.txtSenha.Size = new System.Drawing.Size(200, 23);
-            this.txtSenha.TabIndex = 3;
+            lblSenha.AutoSize = true;
+            lblSenha.Location = new Point(30, 70);
+            lblSenha.Name = "lblSenha";
+            lblSenha.Size = new Size(39, 15);
+            lblSenha.TabIndex = 2;
+            lblSenha.Text = "Senha";
             // 
             // lblKey
             // 
-            this.lblKey.AutoSize = true;
-            this.lblKey.Location = new System.Drawing.Point(30, 120);
-            this.lblKey.Name = "lblKey";
-            this.lblKey.Size = new System.Drawing.Size(44, 15);
-            this.lblKey.TabIndex = 4;
-            this.lblKey.Text = "Licença";
+            lblKey.AutoSize = true;
+            lblKey.Location = new Point(30, 120);
+            lblKey.Name = "lblKey";
+            lblKey.Size = new Size(47, 15);
+            lblKey.TabIndex = 4;
+            lblKey.Text = "Licença";
+            // 
+            // txtUsuario
+            // 
+            txtUsuario.Location = new Point(30, 40);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(200, 23);
+            txtUsuario.TabIndex = 1;
+            // 
+            // txtSenha
+            // 
+            txtSenha.Location = new Point(30, 90);
+            txtSenha.Name = "txtSenha";
+            txtSenha.PasswordChar = '●';
+            txtSenha.Size = new Size(200, 23);
+            txtSenha.TabIndex = 3;
             // 
             // txtKey
             // 
-            this.txtKey.Location = new System.Drawing.Point(30, 140);
-            this.txtKey.Name = "txtKey";
-            this.txtKey.Size = new System.Drawing.Size(200, 23);
-            this.txtKey.TabIndex = 5;
+            txtKey.Location = new Point(30, 140);
+            txtKey.Name = "txtKey";
+            txtKey.Size = new Size(200, 23);
+            txtKey.TabIndex = 5;
             // 
             // btnRegistrar
             // 
-            this.btnRegistrar.Location = new System.Drawing.Point(30, 180);
-            this.btnRegistrar.Name = "btnRegistrar";
-            this.btnRegistrar.Size = new System.Drawing.Size(200, 30);
-            this.btnRegistrar.TabIndex = 6;
-            this.btnRegistrar.Text = "Registrar";
-            this.btnRegistrar.UseVisualStyleBackColor = true;
-            this.btnRegistrar.Click += new System.EventHandler(this.btnRegistrar_Click);
+            btnRegistrar.BackColor = Color.DarkBlue;
+            btnRegistrar.ForeColor = SystemColors.Control;
+            btnRegistrar.Location = new Point(30, 180);
+            btnRegistrar.Name = "btnRegistrar";
+            btnRegistrar.Size = new Size(200, 30);
+            btnRegistrar.TabIndex = 6;
+            btnRegistrar.Text = "Registrar";
+            btnRegistrar.UseVisualStyleBackColor = false;
+            btnRegistrar.Click += btnRegistrar_Click;
             // 
             // statusLabel
             // 
-            this.statusLabel.AutoSize = true;
-            this.statusLabel.Location = new System.Drawing.Point(30, 220);
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(0, 15);
-            this.statusLabel.TabIndex = 7;
+            statusLabel.AutoSize = true;
+            statusLabel.Location = new Point(30, 220);
+            statusLabel.Name = "statusLabel";
+            statusLabel.Size = new Size(0, 15);
+            statusLabel.TabIndex = 7;
             // 
             // RegisterForm
             // 
-            this.AcceptButton = this.btnRegistrar;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 261);
-            this.Controls.Add(this.statusLabel);
-            this.Controls.Add(this.btnRegistrar);
-            this.Controls.Add(this.txtKey);
-            this.Controls.Add(this.lblKey);
-            this.Controls.Add(this.txtSenha);
-            this.Controls.Add(this.lblSenha);
-            this.Controls.Add(this.txtUsuario);
-            this.Controls.Add(this.lblUsuario);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "RegisterForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Registrar Usuário";
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AcceptButton = btnRegistrar;
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ActiveCaptionText;
+            ClientSize = new Size(264, 261);
+            Controls.Add(statusLabel);
+            Controls.Add(btnRegistrar);
+            Controls.Add(txtKey);
+            Controls.Add(lblKey);
+            Controls.Add(txtSenha);
+            Controls.Add(lblSenha);
+            Controls.Add(txtUsuario);
+            Controls.Add(lblUsuario);
+            ForeColor = SystemColors.ControlLightLight;
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "RegisterForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Registrar Usuário";
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 } 
