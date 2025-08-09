@@ -21,7 +21,7 @@ namespace KeyAuth
 {
     public class api
     {
-        public string name, ownerid, secret, version, path;
+        public string name = string.Empty, ownerid = string.Empty, secret = string.Empty, version = string.Empty, path = string.Empty;
         public static long responseTime;
         /// <summary>
         /// Set up your application credentials in order to use keyauth
@@ -92,14 +92,14 @@ namespace KeyAuth
 
         public class msg
         {
-            public string message { get; set; }
-            public string author { get; set; }
-            public string timestamp { get; set; }
+            public string message { get; set; } = string.Empty;
+            public string author { get; set; } = string.Empty;
+            public string timestamp { get; set; } = string.Empty;
         }
 
         public class users
         {
-            public string credential { get; set; }
+            public string credential { get; set; } = string.Empty;
         }
 
         [DataContract]
@@ -137,7 +137,7 @@ namespace KeyAuth
             public string downloadLink { get; set; }
         }
         #endregion
-        private static string sessionid, enckey;
+        private static string sessionid = string.Empty, enckey = string.Empty;
         bool initialized;
         /// <summary>
         /// Initializes the connection with keyauth in order to use any of the functions

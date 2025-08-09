@@ -35,17 +35,17 @@
             panelStatus = new Panel();
             lblStatusInfo = new Label();
             btnStatus = new Button();
+            btnAntiCheat = new Button();
             lblStatusTitle = new Label();
             panelAimbot = new Panel();
             lblAimbotTitle = new Label();
-            btnActive = new Button();
-            btnNewAimbot = new Button();
-            btnSafeAimbot = new Button();
+            btnAimbotAtualizado = new Button();
             panelFooter = new Panel();
             lblVersion = new Label();
             panelSidebar = new Panel();
             btnConfig = new Button();
             btnHacksPro = new Button();
+            btnVoltarSidebar = new Button();
             panelConfigOptions = new Panel();
             btnDestruct = new Button();
             btnLimparLogs = new Button();
@@ -113,10 +113,11 @@
             panelStatus.BorderStyle = BorderStyle.FixedSingle;
             panelStatus.Controls.Add(lblStatusInfo);
             panelStatus.Controls.Add(btnStatus);
+            panelStatus.Controls.Add(btnAntiCheat);
             panelStatus.Controls.Add(lblStatusTitle);
-            panelStatus.Location = new Point(22, 232);
+            panelStatus.Location = new Point(22, 316);
             panelStatus.Name = "panelStatus";
-            panelStatus.Size = new Size(295, 100);
+            panelStatus.Size = new Size(295, 196);
             panelStatus.TabIndex = 2;
             // 
             // lblStatusInfo
@@ -124,7 +125,7 @@
             lblStatusInfo.AutoSize = true;
             lblStatusInfo.Font = new Font("Segoe UI", 8F);
             lblStatusInfo.ForeColor = Color.Silver;
-            lblStatusInfo.Location = new Point(13, 76);
+            lblStatusInfo.Location = new Point(13, 82);
             lblStatusInfo.Name = "lblStatusInfo";
             lblStatusInfo.Size = new Size(265, 13);
             lblStatusInfo.TabIndex = 2;
@@ -137,13 +138,28 @@
             btnStatus.FlatStyle = FlatStyle.Flat;
             btnStatus.Font = new Font("Segoe UI", 9F);
             btnStatus.ForeColor = Color.White;
-            btnStatus.Location = new Point(40, 45);
+            btnStatus.Location = new Point(32, 42);
             btnStatus.Name = "btnStatus";
             btnStatus.Size = new Size(230, 28);
             btnStatus.TabIndex = 1;
             btnStatus.Text = "🔍 VERIFICAR STATUS DO SISTEMA";
             btnStatus.UseVisualStyleBackColor = false;
             btnStatus.Click += btnStatus_Click;
+            // 
+            // btnAntiCheat
+            // 
+            btnAntiCheat.BackColor = Color.FromArgb(80, 80, 120);
+            btnAntiCheat.FlatAppearance.BorderSize = 0;
+            btnAntiCheat.FlatStyle = FlatStyle.Flat;
+            btnAntiCheat.Font = new Font("Segoe UI", 9F);
+            btnAntiCheat.ForeColor = Color.White;
+            btnAntiCheat.Location = new Point(32, 108);
+            btnAntiCheat.Name = "btnAntiCheat";
+            btnAntiCheat.Size = new Size(230, 50);
+            btnAntiCheat.TabIndex = 2;
+            btnAntiCheat.Text = "🛡️ GERENCIADOR ANTI-CHEAT";
+            btnAntiCheat.UseVisualStyleBackColor = false;
+            btnAntiCheat.Click += BtnAntiCheat_Click;
             // 
             // lblStatusTitle
             // 
@@ -161,12 +177,10 @@
             panelAimbot.BackColor = Color.Black;
             panelAimbot.BorderStyle = BorderStyle.FixedSingle;
             panelAimbot.Controls.Add(lblAimbotTitle);
-            panelAimbot.Controls.Add(btnActive);
-            panelAimbot.Controls.Add(btnNewAimbot);
-            panelAimbot.Controls.Add(btnSafeAimbot);
+            panelAimbot.Controls.Add(btnAimbotAtualizado);
             panelAimbot.Location = new Point(26, 6);
             panelAimbot.Name = "panelAimbot";
-            panelAimbot.Size = new Size(275, 210);
+            panelAimbot.Size = new Size(275, 120);
             panelAimbot.TabIndex = 0;
             // 
             // lblAimbotTitle
@@ -180,50 +194,20 @@
             lblAimbotTitle.TabIndex = 0;
             lblAimbotTitle.Text = "🎯 AIMBOT SYSTEM";
             // 
-            // btnActive
+            // btnAimbotAtualizado
             // 
-            btnActive.BackColor = Color.FromArgb(0, 120, 215);
-            btnActive.FlatAppearance.BorderSize = 0;
-            btnActive.FlatStyle = FlatStyle.Flat;
-            btnActive.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnActive.ForeColor = Color.White;
-            btnActive.Location = new Point(51, 47);
-            btnActive.Name = "btnActive";
-            btnActive.Size = new Size(167, 32);
-            btnActive.TabIndex = 1;
-            btnActive.Text = "🚀 ATIVAR AIMBOT";
-            btnActive.UseVisualStyleBackColor = false;
-            btnActive.Click += btnActive_Click;
-            // 
-            // btnNewAimbot
-            // 
-            btnNewAimbot.BackColor = Color.FromArgb(80, 80, 90);
-            btnNewAimbot.FlatAppearance.BorderSize = 0;
-            btnNewAimbot.FlatStyle = FlatStyle.Flat;
-            btnNewAimbot.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnNewAimbot.ForeColor = Color.White;
-            btnNewAimbot.Location = new Point(41, 94);
-            btnNewAimbot.Name = "btnNewAimbot";
-            btnNewAimbot.Size = new Size(189, 54);
-            btnNewAimbot.TabIndex = 3;
-            btnNewAimbot.Text = "🎯 AIMBOT AVANÇADO";
-            btnNewAimbot.UseVisualStyleBackColor = false;
-            btnNewAimbot.Click += btnNewAimbot_Click;
-            // 
-            // btnSafeAimbot
-            // 
-            btnSafeAimbot.BackColor = Color.FromArgb(60, 120, 60);
-            btnSafeAimbot.FlatAppearance.BorderSize = 0;
-            btnSafeAimbot.FlatStyle = FlatStyle.Flat;
-            btnSafeAimbot.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSafeAimbot.ForeColor = Color.White;
-            btnSafeAimbot.Location = new Point(41, 155);
-            btnSafeAimbot.Name = "btnSafeAimbot";
-            btnSafeAimbot.Size = new Size(189, 38);
-            btnSafeAimbot.TabIndex = 4;
-            btnSafeAimbot.Text = "🛡️ AIMBOT SAFE";
-            btnSafeAimbot.UseVisualStyleBackColor = false;
-            btnSafeAimbot.Click += btnSafeAimbot_Click;
+            btnAimbotAtualizado.BackColor = Color.FromArgb(120, 60, 120);
+            btnAimbotAtualizado.FlatAppearance.BorderSize = 0;
+            btnAimbotAtualizado.FlatStyle = FlatStyle.Flat;
+            btnAimbotAtualizado.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAimbotAtualizado.ForeColor = Color.White;
+            btnAimbotAtualizado.Location = new Point(41, 47);
+            btnAimbotAtualizado.Name = "btnAimbotAtualizado";
+            btnAimbotAtualizado.Size = new Size(189, 38);
+            btnAimbotAtualizado.TabIndex = 5;
+            btnAimbotAtualizado.Text = "🔄 AIMBOT ATUALIZADO";
+            btnAimbotAtualizado.UseVisualStyleBackColor = false;
+            btnAimbotAtualizado.Click += btnAimbotAtualizado_Click;
             // 
             // panelFooter
             // 
@@ -287,6 +271,13 @@
             btnHacksPro.TabIndex = 102;
             btnHacksPro.Text = "⚡";
             btnHacksPro.UseVisualStyleBackColor = false;
+            // 
+            // btnVoltarSidebar
+            // 
+            btnVoltarSidebar.Location = new Point(0, 0);
+            btnVoltarSidebar.Name = "btnVoltarSidebar";
+            btnVoltarSidebar.Size = new Size(75, 23);
+            btnVoltarSidebar.TabIndex = 0;
             // 
             // panelConfigOptions
             // 
@@ -381,8 +372,8 @@
         private Panel panelMain;
         private Panel panelAimbot;
         private Label lblAimbotTitle;
-        private Button btnActive;
-        private Button btnNewAimbot;
+
+
         private Panel panelStatus;
         private Label lblStatusTitle;
         private Button btnStatus;
@@ -396,6 +387,9 @@
         private Button btnLimparLogs;
         private Button btnFechar;
         private Button btnHacksPro;
-        private Button btnSafeAimbot;
+
+
+        private Button btnAimbotAtualizado;
+        private Button btnAntiCheat;
     }
 }

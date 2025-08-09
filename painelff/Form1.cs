@@ -25,128 +25,53 @@ namespace painelff
         private System.Windows.Forms.Timer? pulseTimer;
 
         // Padrões para Aimbot Avançado
-        // private static string pattern = "00 00 A5 43 00 00 00 00 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF";
-        private static string patternObfuscated = ReverseString("00 00 A5 43 00 00 00 00 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF");
+        private static string pattern = "00 00 A5 43 00 00 00 00 ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 80 BF";
         private static long Offset5 = 44L;
         private static long offset6 = 40L;
 
-        // Lista de ferramentas proibidas
-        private static readonly string[] forbiddenTools = { "cheatengine", "processhacker", "ida64", "ida32", "ollydbg", "x64dbg", "scylla", "procexp", "megadumper" };
 
-        // Lista de padrões Antiban (ofuscados)
-        private static readonly string[] antibanPatternsObfuscated = new string[]
-        {
-            ReverseString("00 48 2D E9 0D B0 A0 E1 70 D0 4D E2 08 23 9F E5 02 20 9F E7 00 20 92 E5 00 00 A0 E3 1E FF 2F E1"),
-            ReverseString("30 48 2D E9 08 B0 8D E2 20 D0 4D E2 10 C0 9B E5 0C E0 9B E5 08 40 9B E5 00 00 A0 E3 1E FF 2F E1"),
-            ReverseString("00 48 2D E9 0D B0 A0 E1 18 D0 4D E2 54 10 9F E5 01 10 9F E7 00 10 91 E5 04 10 0B E5 0C 00 8D E5 0C 00 9D E5 B5 06 00 EB 00 00 A0 E3 1E FF 2F E1"),
-            ReverseString("00 48 2D E9 0D B0 A0 E1 98 D0 4D E2 84 34 9F E5 03 30 9F E7 00 30 93 E5 04 30 0B E5 1C 00 0B E5 00 00 A0 E3 1E FF 2F E1"),
-            ReverseString("00 48 2D E9 0D B0 A0 E1 58 D0 4D E2 64 22 9F E5 02 20 9F E7 00 20 92 E5 04 20 0B E5 00 00 A0 E3 1E FF 2F E1")
-        };
 
-        // Método Antiban automático
-        private async Task ApplyAntibanAsync()
+        // Sistema Anti-Cheat integrado
+        private async Task InitializeAntiCheatAsync()
         {
             try
             {
-                var processes = Process.GetProcessesByName("HD-Player");
-                if (processes.Length == 0)
-                    return;
-                var r = new Mem();
-                if (!r.OpenProcess("HD-Player"))
-                    return;
-
-                foreach (var patternObf in antibanPatternsObfuscated)
+                // Configurar eventos do Anti-Cheat
+                AntiCheat.ProtectionEvent += (sender, message) =>
                 {
-                    var pattern = ReverseString(patternObf);
-                    var scan = await r.AoBScan(pattern, true, true);
-                    if (scan != null && scan.Any())
-                    {
-                        Debug.WriteLine($"[ANTIBAN] Padrão encontrado e protegido: {pattern}");
-                        // Aqui você pode sobrescrever, limpar, etc. Por enquanto, só loga.
-                    }
-                }
+                    Debug.WriteLine($"[ANTI-CHEAT] {message}");
+                    // Aqui você pode adicionar logs visuais se desejar
+                };
+
+                AntiCheat.DetectionEvent += (sender, message) =>
+                {
+                    Debug.WriteLine($"[DETECÇÃO] {message}");
+                    // Aqui você pode adicionar notificações visuais se desejar
+                };
+
+                // Inicializar o sistema Anti-Cheat
+                await AntiCheat.InitializeAsync();
+                
+                Debug.WriteLine("[ANTI-CHEAT] Sistema inicializado com sucesso");
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"[ANTIBAN] Erro: {ex.Message}");
+                Debug.WriteLine($"[ANTI-CHEAT] Erro na inicialização: {ex.Message}");
             }
         }
 
-        // Método para inverter string (ofuscação simples)
-        private static string ReverseString(string s)
-        {
-            return new string(s.Reverse().ToArray());
-        }
 
-        // Método para detectar ferramentas proibidas
-        private void DetectForbiddenToolsAndExit()
-        {
-            var runningProcesses = Process.GetProcesses();
-            foreach (var proc in runningProcesses)
-            {
-                try
-                {
-                    string name = proc.ProcessName.ToLower();
-                    if (forbiddenTools.Any(tool => name.Contains(tool)))
-                    {
-                        MessageBox.Show($"Ferramenta proibida detectada: {name}\nO programa será encerrado.", "Proteção", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Application.Exit();
-                        return;
-                    }
-                }
-                catch { }
-            }
-        }
 
         // Adicione um campo para o painel de hacks
         private HacksPanel hacksPanel;
         private Button btnVoltarSidebar;
 
-        // Lista de padrões Antiblacklist (ofuscados)
-        private static readonly string[] antiblacklistPatternsObfuscated = new string[]
-        {
-            ReverseString("0A 00 A0 E3 6E 00 54 E3 3F 00 00 13 10 8C BD E8 08 00 A0 E3 00 00 00 EA 0D 00 A0 E3 70 00 FF E6 10 8C BD E8 C1 00 F0 20 E3"),
-            ReverseString("EA 00 00 A0 E3 21 00 84 E8 70 8C BD E8 F0 4F 2D E9 00 F0 20 E3"),
-            ReverseString("A8 00 9F E5 00 20 A0 E3 00 00 9F E7 00 10 90 E5 0A 00 A0 E3"),
-            ReverseString("A8 00 9F E5 00 20 A0 E3 00 00 9F E7 00 10 90 E5 64 09 A0 00")
-        };
 
-        // Método Antiblacklist automático
-        private async Task ApplyAntiblacklistAsync()
-        {
-            try
-            {
-                var processes = Process.GetProcessesByName("HD-Player");
-                if (processes.Length == 0)
-                    return;
-                var r = new Mem();
-                if (!r.OpenProcess("HD-Player"))
-                    return;
-
-                foreach (var patternObf in antiblacklistPatternsObfuscated)
-                {
-                    var pattern = ReverseString(patternObf);
-                    var scan = await r.AoBScan(pattern, true, true);
-                    if (scan != null && scan.Any())
-                    {
-                        Debug.WriteLine($"[ANTIBLACKLIST] Padrão encontrado e protegido: {pattern}");
-                        // Aqui você pode sobrescrever, limpar, etc. Por enquanto, só loga.
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[ANTIBLACKLIST] Erro: {ex.Message}");
-            }
-        }
 
         public Form1()
         {
-            DetectForbiddenToolsAndExit(); // Proteção contra ferramentas proibidas
-            // Chama o antiban automático
-            _ = ApplyAntibanAsync();
-            // Chama o antiblacklist automático
-            _ = ApplyAntiblacklistAsync();
+            // Inicializar sistema Anti-Cheat
+            _ = InitializeAntiCheatAsync();
             InitializeComponent();
             InitializeAimbot();
             InitializeSounds();
@@ -226,14 +151,10 @@ namespace painelff
         private void SetupEventHandlers()
         {
             // Adicionar eventos de mouse para efeitos visuais
-            btnActive.MouseEnter += Button_MouseEnter;
-            btnActive.MouseLeave += Button_MouseLeave;
             btnStatus.MouseEnter += Button_MouseEnter;
             btnStatus.MouseLeave += Button_MouseLeave;
-            btnNewAimbot.MouseEnter += Button_MouseEnter;
-            btnNewAimbot.MouseLeave += Button_MouseLeave;
-            btnSafeAimbot.MouseEnter += Button_MouseEnter;
-            btnSafeAimbot.MouseLeave += Button_MouseLeave;
+            btnAimbotAtualizado.MouseEnter += Button_MouseEnter;
+            btnAimbotAtualizado.MouseLeave += Button_MouseLeave;
         }
 
         private void Button_MouseEnter(object sender, EventArgs e)
@@ -254,14 +175,10 @@ namespace painelff
             if (sender is Button button)
             {
                 // Restaurar cor original baseada no tipo de botão
-                if (button == btnActive)
-                    button.BackColor = Color.FromArgb(0, 120, 215);
-                else if (button == btnStatus)
+                if (button == btnStatus)
                     button.BackColor = Color.FromArgb(100, 100, 110);
-                else if (button == btnNewAimbot)
-                    button.BackColor = Color.FromArgb(80, 80, 90);
-                else if (button == btnSafeAimbot)
-                    button.BackColor = Color.FromArgb(60, 120, 60);
+                else if (button == btnAimbotAtualizado)
+                    button.BackColor = Color.FromArgb(120, 60, 120);
             }
         }
 
@@ -319,7 +236,7 @@ namespace painelff
             // Efeito de pulso para botões ativos
             if (isAimbotActive)
             {
-                btnActive.BackColor = Color.FromArgb(
+                btnAimbotAtualizado.BackColor = Color.FromArgb(
                     (int)(Math.Sin(DateTime.Now.Ticks / 1000000.0) * 30 + 120),
                     150,
                     215
@@ -372,62 +289,7 @@ namespace painelff
             }
         }
 
-        private async void btnActive_Click(object sender, EventArgs e)
-        {
-            if (isScanning) return;
 
-            PlayClickSound();
-
-            try
-            {
-                isScanning = true;
-                btnActive.Text = "🔍 ESCANEANDO...";
-                btnActive.Enabled = false;
-
-                // Iniciar animação de loading
-                pulseTimer.Start();
-
-                // Chamar o novo método Neck() e verificar o resultado
-                bool success = await Neck();
-
-                if (success)
-                {
-                    isAimbotActive = true;
-                    btnActive.Text = "✅ AIMBOT ATIVO";
-                    btnActive.BackColor = Color.FromArgb(0, 150, 100);
-                    btnNewAimbot.Enabled = true;
-
-                    PlaySuccessSound();
-                    AnimateButtonSuccess(btnActive);
-
-                    MessageBox.Show("🎯 Aimbot ativado com sucesso!\n\n⚡ Sistema pronto para uso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    PlayErrorSound();
-                    AnimateButtonError(btnActive);
-                    MessageBox.Show("❌ Erro ao ativar Aimbot!\n\nVerifique se:\n• BlueStacks 4 está rodando\n• Free Fire está aberto\n• Execute como administrador", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                PlayErrorSound();
-                AnimateButtonError(btnActive);
-                MessageBox.Show($"❌ Erro ao ativar aimbot:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                isScanning = false;
-                btnActive.Enabled = true;
-                pulseTimer.Stop();
-
-                if (!isAimbotActive)
-                {
-                    btnActive.Text = "🚀 ATIVAR AIMBOT";
-                    btnActive.BackColor = Color.FromArgb(0, 120, 215);
-                }
-            }
-        }
 
         static async Task<bool> Neck()
         {
@@ -486,8 +348,7 @@ namespace painelff
                     return false;
                 }
 
-                // Desofusca o padrão em tempo de execução
-                var pattern = ReverseString(patternObfuscated);
+                // Usar o padrão diretamente
                 var Scan = await r.AoBScan(pattern, true, true);
 
                 if (Scan == null || !Scan.Any())
@@ -517,12 +378,16 @@ namespace painelff
 
 
 
-        private async void btnNewAimbot_Click(object sender, EventArgs e)
+
+
+
+
+        private async void btnAimbotAtualizado_Click(object sender, EventArgs e)
         {
             PlayClickSound();
 
-            btnNewAimbot.Text = "⚡ APLICANDO...";
-            btnNewAimbot.Enabled = false;
+            btnAimbotAtualizado.Text = "⚡ APLICANDO...";
+            btnAimbotAtualizado.Enabled = false;
             try
             {
                 // Verificar se o processo está rodando
@@ -530,90 +395,40 @@ namespace painelff
                 if (processes.Length == 0)
                 {
                     PlayErrorSound();
-                    AnimateButtonError(btnNewAimbot);
+                    AnimateButtonError(btnAimbotAtualizado);
                     MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Chamar o método AdvancedAimbot()
-                bool success = await AdvancedAimbot();
+                // Aplicar o novo aimbot atualizado
+                bool success = await AimbotAtualizado();
 
                 if (success)
                 {
-                    btnNewAimbot.Text = "✅ AIMBOT AVANÇADO ATIVO";
-                    btnNewAimbot.BackColor = Color.FromArgb(0, 150, 100);
+                    btnAimbotAtualizado.Text = "✅ AIMBOT ATUALIZADO ATIVO";
+                    btnAimbotAtualizado.BackColor = Color.FromArgb(0, 150, 100);
 
                     PlaySuccessSound();
-                    AnimateButtonSuccess(btnNewAimbot);
+                    AnimateButtonSuccess(btnAimbotAtualizado);
 
-                    MessageBox.Show("✅ Aimbot Avançado aplicado com sucesso!\n\n🎯 Sistema de mira avançado ativado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("✅ Aimbot Atualizado aplicado com sucesso!\n\n🔄 Sistema de mira atualizado ativado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
                     PlayErrorSound();
-                    AnimateButtonError(btnNewAimbot);
-                    MessageBox.Show("❌ Erro ao aplicar Aimbot Avançado!\n\nVerifique se:\n• BlueStacks 4 está rodando\n• Free Fire está aberto\n• Execute como administrador", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AnimateButtonError(btnAimbotAtualizado);
+                    MessageBox.Show("❌ Erro ao aplicar Aimbot Atualizado!\n\nVerifique se:\n• BlueStacks 4 está rodando\n• Free Fire está aberto\n• Execute como administrador", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
                 PlayErrorSound();
-                AnimateButtonError(btnNewAimbot);
-                MessageBox.Show($"❌ Erro ao aplicar Aimbot Avançado:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                AnimateButtonError(btnAimbotAtualizado);
+                MessageBox.Show($"❌ Erro ao aplicar Aimbot Atualizado:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
-                btnNewAimbot.Enabled = true;
-            }
-        }
-
-        private async void btnSafeAimbot_Click(object sender, EventArgs e)
-        {
-            PlayClickSound();
-
-            btnSafeAimbot.Text = "⚡ APLICANDO...";
-            btnSafeAimbot.Enabled = false;
-            try
-            {
-                // Verificar se o processo está rodando
-                var processes = Process.GetProcessesByName("HD-Player");
-                if (processes.Length == 0)
-                {
-                    PlayErrorSound();
-                    AnimateButtonError(btnSafeAimbot);
-                    MessageBox.Show("❌ BlueStacks 4 não encontrado!\n\nCertifique-se de que o Free Fire está rodando.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Chamar o método SafeAimbot()
-                bool success = await SafeAimbot();
-
-                if (success)
-                {
-                    btnSafeAimbot.Text = "✅ AIMBOT SAFE ATIVO";
-                    btnSafeAimbot.BackColor = Color.FromArgb(0, 150, 100);
-
-                    PlaySuccessSound();
-                    AnimateButtonSuccess(btnSafeAimbot);
-
-                    MessageBox.Show("✅ Aimbot Safe aplicado com sucesso!\n\n🛡️ Sistema de mira seguro ativado!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    PlayErrorSound();
-                    AnimateButtonError(btnSafeAimbot);
-                    MessageBox.Show("❌ Erro ao aplicar Aimbot Safe!\n\nVerifique se:\n• BlueStacks 4 está rodando\n• Free Fire está aberto\n• Execute como administrador", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                PlayErrorSound();
-                AnimateButtonError(btnSafeAimbot);
-                MessageBox.Show($"❌ Erro ao aplicar Aimbot Safe:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                btnSafeAimbot.Enabled = true;
+                btnAimbotAtualizado.Enabled = true;
             }
         }
 
@@ -664,17 +479,68 @@ namespace painelff
             }
         }
 
+        static async Task<bool> AimbotAtualizado()
+        {
+            try
+            {
+                if (Process.GetProcessesByName("HD-Player").Length == 0)
+                {
+                    return false;
+                }
+
+                var r = new Mem();
+                if (!r.OpenProcess("HD-Player"))
+                {
+                    return false;
+                }
+
+                var Scan = await r.AoBScan("FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 FF FF FF FF FF FF FF FF 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 00 00 00 00 00 00 00 00 00 00 00 00 A5 43", true, true);
+                {
+                    foreach (var current in Scan)
+                    {
+                        Int64 rep1 = current + 0xAA;
+                        Int64 rep2 = current + 0xA6;
+
+                        var Readmem = r.ReadMemory<int>(rep1.ToString("X"));
+
+                        r.WriteMemory(rep2.ToString("X"), "int", Readmem.ToString());
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Erro no AimbotAtualizado: {ex.Message}");
+                return false;
+            }
+        }
+
         private void btnStatus_Click(object sender, EventArgs e)
         {
             PlayClickSound();
 
             var processes = Process.GetProcessesByName("HD-Player");
             string status = processes.Length > 0 ? "🟢 BlueStacks 4: Ativo" : "🔴 BlueStacks 4: Não encontrado";
-            status += $"\n🎯 Aimbot: {(isAimbotActive ? "🟢 Ativo" : "🔴 Inativo")}";
-            status += $"\n🎯 Aimbot Avançado: {(btnNewAimbot.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
-            status += $"\n🛡️ Aimbot Safe: {(btnSafeAimbot.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
+            status += $"\n🔄 Aimbot Atualizado: {(btnAimbotAtualizado.Text.Contains("Ativo") ? "🟢 Ativo" : "🔴 Inativo")}";
             // Removido: Vision Hack, Wall Hack, No Recoil
             MessageBox.Show(status, "📊 Status do Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // Botão para abrir o gerenciador de Anti-Cheat
+        private void BtnAntiCheat_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var antiCheatForm = new AntiCheatForm())
+                {
+                    antiCheatForm.ShowDialog(this);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao abrir gerenciador Anti-Cheat: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -700,6 +566,9 @@ namespace painelff
             soundError?.Dispose();
             soundClick?.Dispose();
             soundActivate?.Dispose();
+
+            // Shutdown do sistema Anti-Cheat
+            AntiCheat.Shutdown();
 
             base.OnFormClosing(e);
         }
@@ -737,6 +606,8 @@ namespace painelff
             MessageBox.Show("Logs limpos com sucesso!", "Limpar Logs", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+
+
         private void BtnHacksPro_Click(object sender, EventArgs e)
         {
             // Esconde o painel principal e mostra o painel de hacks
@@ -745,6 +616,8 @@ namespace painelff
             hacksPanel.BringToFront();
             btnVoltarSidebar.Visible = true;
         }
+
+
 
         private void MostrarPainelPrincipal()
         {
